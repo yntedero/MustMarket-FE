@@ -1,0 +1,14 @@
+<form (ngSubmit)="onSubmit()">
+    <label>Title:</label>
+    <input type="text" name="title" [(ngModel)]="offer.title" required>
+  
+    <label>Description:</label>
+    <textarea name="description" [(ngModel)]="offer.description" required></textarea>
+      <input type="hidden" name="cityId" [(ngModel)]="offer.cityId" value="1">
+    <input type="hidden" name="categoryId" [(ngModel)]="offer.categoryId" value="1">
+    <input type="hidden" name="userId" [(ngModel)]="offer.userId" value="1">
+
+  
+    <button type="submit">Create Offer</button>
+  </form>
+  
