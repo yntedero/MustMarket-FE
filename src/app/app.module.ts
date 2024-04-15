@@ -1,19 +1,23 @@
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { routes } from './app.routes';
 import { AppComponent } from './app.component';
 @NgModule({
   declarations: [
-    // Your components
-  ],
+    AppComponent
+    ],
   imports: [
-    // Other modules
+    BrowserModule,
+    RouterModule.forRoot(routes),
     HttpClientModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ['example.com'], // Replace with your API domain
-        disallowedRoutes: ['example.com/auth'] // Exclude authentication endpoints
+        allowedDomains: ['example.com'], 
+        disallowedRoutes: ['example.com/auth']
       }
     })
   ],
