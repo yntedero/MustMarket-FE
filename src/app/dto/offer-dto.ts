@@ -4,6 +4,5 @@ export interface OfferDTO {
     userId: number;
     cityId: number;
     categoryId: number;
-    
   }
   
