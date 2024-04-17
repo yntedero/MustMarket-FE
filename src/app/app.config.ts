@@ -1,4 +1,3 @@
-// src/app/app.config.ts
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -9,8 +8,8 @@ import { provideHttpClient } from "@angular/common/http";
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    HttpClientModule, // Provide HttpClient
+    HttpClientModule,
     provideHttpClient(),
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true } // Provide HTTP_INTERCEPTORS
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ]
 };

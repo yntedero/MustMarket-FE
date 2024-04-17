@@ -1,4 +1,3 @@
-// src/main.ts
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { RootModule } from './app/root.module';
 

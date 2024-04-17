@@ -1,4 +1,3 @@
-// src/app/login/login.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {AuthenticationService} from "../services/auth/authentication.service";

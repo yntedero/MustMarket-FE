@@ -1,4 +1,3 @@
-// src/app/root.module.ts
 import { NgModule } from '@angular/core';
 import { AppModule } from './app.module';
 import { appConfig } from './app.config';

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +19,14 @@ export class AuthenticationService {
       .pipe(tap(response => {
         const authHeader = response.headers.get('Authorization');
         if (authHeader && authHeader.startsWith('Bearer ')) {
-          const token = authHeader.substring(7); // Remove 'Bearer ' from the start of the string
+          const token = authHeader.substring(7);
           localStorage.setItem('token', token);
         }
       }));
   }
-
+  getOffers(): Observable<any> {
+    return this.http.get('http://localhost:8080/api/offers');
+  }
   getToken() {
     return localStorage.getItem('token');
   }
