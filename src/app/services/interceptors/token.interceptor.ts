@@ -14,7 +14,7 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     const token = this.authenticationService.getToken();
-    console.log("include token");
+
     if (token) {
       request = request.clone({
         setHeaders: {

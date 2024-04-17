@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object, private cookieService: CookieService) {}
 
   login(email: string, password: string) {
-    // Create Basic Authentication header
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa(email + ':' + password),
     });
@@ -20,14 +21,21 @@ export class AuthenticationService {
         const authHeader = response.headers.get('Authorization');
         if (authHeader && authHeader.startsWith('Bearer ')) {
           const token = authHeader.substring(7);
-          localStorage.setItem('token', token);
+          this.cookieService.set('token', token);
         }
       }));
   }
+
   getOffers(): Observable<any> {
-    return this.http.get('http://localhost:8080/api/offers');
+    const token = this.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.get('http://localhost:8080/api/offers', { headers });
   }
+
   getToken() {
-    return localStorage.getItem('token');
+    return this.cookieService.get('token') || '';
   }
 }
