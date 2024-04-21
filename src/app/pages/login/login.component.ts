@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormsModule} from "@angular/forms";
 import {NgClass} from "@angular/common";
+import { AuthenticationService } from '../../services/auth/authentication.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -15,57 +17,43 @@ import {NgClass} from "@angular/common";
 })
 export class LoginComponent {
 
-
   isSignDivVisiable: boolean  = true;
 
   signUpObj: SignUpModel  = new SignUpModel();
   loginObj: LoginModel  = new LoginModel();
 
-  constructor(private router: Router){}
-
+  constructor(private router: Router, private authenticationService: AuthenticationService, private cookieService: CookieService){}
 
   onRegister() {
-    debugger;
-    const localUser = localStorage.getItem('angular17users');
-    if(localUser != null) {
-      const users =  JSON.parse(localUser);
-      users.push(this.signUpObj);
-      localStorage.setItem('angular17users', JSON.stringify(users))
-    } else {
-      const users = [];
-      users.push(this.signUpObj);
-      localStorage.setItem('angular17users', JSON.stringify(users))
-    }
-    alert('Registration Success')
+    this.authenticationService.register(this.signUpObj).subscribe(response => {
+      alert('Registration Success');
+    }, error => {
+      alert('Registration Failed');
+    });
   }
 
   onLogin() {
-    debugger;
-    const localUsers =  localStorage.getItem('angular17users');
-    if(localUsers != null) {
-      const users =  JSON.parse(localUsers);
-
-      const isUserPresent =  users.find( (user:SignUpModel)=> user.email == this.loginObj.email && user.password == this.loginObj.password);
-      if(isUserPresent != undefined) {
-        alert("User Found...");
-        localStorage.setItem('loggedUser', JSON.stringify(isUserPresent));
-        this.router.navigateByUrl('/dashboard');
-      } else {
-        alert("No User Found")
-      }
-    }
+    this.authenticationService.login(this.loginObj.email, this.loginObj.password).subscribe(response => {
+      alert("User Found...");
+      this.cookieService.set('token', this.authenticationService.getToken());
+      this.cookieService.set('user', JSON.stringify(response.body));
+      this.router.navigateByUrl('/offer');
+    }, error => {
+      alert("No User Found");
+    });
   }
-
 }
 
 export class SignUpModel  {
   name: string;
   email: string;
+  phone: string;
   password: string;
 
   constructor() {
     this.email = "";
     this.name = "";
+    this.phone = "";
     this.password= ""
   }
 }
