@@ -1,4 +1,4 @@
-import {NgClass, NgFor} from "@angular/common";
+import {NgClass, NgFor, NgForOf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CityService } from '../../../services/cities/city.service';
@@ -12,7 +12,8 @@ import { CategoryDTO } from '../../../dtos/category.dto';
   standalone: true,
   imports: [
     FormsModule,
-    NgClass
+    NgClass,
+    NgForOf
   ],
   templateUrl: './offers-filter.component.html',
   styleUrl: './offers-filter.component.scss'
