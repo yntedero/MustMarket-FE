@@ -1,1 +1,16 @@
-<p>offers works!</p>
+<div class="parent">
+  <div class="container">
+    <h1>Offers</h1>
+    <div class="offers-container">
+      <div *ngFor="let offer of offers" class="offer-card">
+        <div class="offer-image"></div>
+        <div class="offer-info">
+          <h2>{{ offer.title }}</h2>
+          <p>{{ offer.description }}...</p>
+          <span>City: {{ offer.cityId }}</span>
+          <span>Category: {{ offer.categoryId }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

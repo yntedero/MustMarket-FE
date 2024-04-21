@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.parent{
+  background-color: #c9d6ff;
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.container{
+  position: relative;
+  overflow: hidden;
+  width: 1200px;
+  max-width: 100%;
+  min-height: 480px;
+  padding: 20px;
+  background: none; /* Removed white background */
+}
+
+.container h1{
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.offers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: none;
+}
+
+
+.offer-card {
+  background-color: #fff; /* Added white background */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  height: 200px; /* Adjusted height */
+  padding: 8px;
+  margin-top: 20px;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.offer-image {
+  width: 172px; /* Adjusted width */
+  height: 100%; /* Adjusted height to take all available space */
+  background-color: #512da8;
+}
+
+.offer-info {
+  padding-left: 8px;
+  flex-grow: 1;
+}
+
+.offer-info h2{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.offer-info p{
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+  margin: 20px 0;
+}
+
+.offer-info span{
+  font-size: 12px;
+  color: #333;
+}
