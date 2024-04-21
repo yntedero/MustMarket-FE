@@ -1,0 +1,9 @@
+<form (ngSubmit)="applyFilters()">
+  <select [(ngModel)]="cityId" name="city">
+    <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+  </select>
+  <select [(ngModel)]="categoryId" name="category">
+    <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+  </select>
+  <button type="submit">Find</button>
+</form>
