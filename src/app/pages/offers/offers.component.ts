@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgFor} from "@angular/common";
 import {OfferDTO} from "../../dtos/offer.dto";
+// import {OffersFilterComponent} from "./offers-filter/offers-filter.component";
 // import { OfferService } from '../../services/offers/offer.service';
 import {HttpClient} from "@angular/common/http";
 @Component({
@@ -12,6 +13,7 @@ import {HttpClient} from "@angular/common/http";
     FormsModule,
     NgClass,
     NgFor,
+    // OffersFilterComponent
   ],
   templateUrl: './offers.component.html',
   styleUrl: './offers.component.scss'
