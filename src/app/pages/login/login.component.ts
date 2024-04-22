@@ -35,6 +35,7 @@ export class LoginComponent {
   onLogin() {
     this.authenticationService.login(this.loginObj.email, this.loginObj.password).subscribe(response => {
       alert("User Found...");
+      console.log("token", this.authenticationService.getToken());
       this.cookieService.set('token', this.authenticationService.getToken());
       this.cookieService.set('user', JSON.stringify(response.body));
       this.router.navigateByUrl('/offers');

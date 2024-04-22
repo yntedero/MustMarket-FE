@@ -14,19 +14,17 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  height: auto;
 }
 
 .container{
   position: relative;
-  overflow: hidden;
   width: 1200px;
   max-width: 100%;
-  min-height: 480px;
+  height: auto; // Changed from min-height to height and set it to auto
   padding: 20px;
-  background: none; /* Removed white background */
+  background: none;
 }
-
 .container h1{
   font-size: 24px;
   font-weight: 600;

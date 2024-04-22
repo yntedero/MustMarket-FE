@@ -11,10 +11,10 @@ export class CityService {
   constructor(private http: HttpClient) { }
 
   createCity(city: CityDTO): Observable<CityDTO> {
-    return this.http.post<CityDTO>('/api/cities', city);
+    return this.http.post<CityDTO>('http://localhost:8080/api/cities', city);
   }
 
   getAllCities(): Observable<CityDTO[]> {
-    return this.http.get<CityDTO[]>('/api/cities');
+    return this.http.get<CityDTO[]>('http://localhost:8080/api/cities');
   }
 }

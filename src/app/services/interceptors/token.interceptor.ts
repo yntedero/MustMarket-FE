@@ -1,28 +1,23 @@
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
-import { AuthenticationService } from '../auth/authentication.service';
-
-@Injectable({
-  providedIn: 'root'
-})
+import {inject, Injectable} from '@angular/core';
+import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpHeaders} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import {CookieService} from "ngx-cookie-service";
+@Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor() { }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler) {
-    if (request.url.includes('/api/authentication')) {
-      return next.handle(request);
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    console.log("Intercepting Requests");
+
+    if (!request.url.includes('/api/authentication')) {
+      const cookieService = inject(CookieService);
+      const token = cookieService.get('token');
+      if (token) {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        const newRequest = new HttpRequest(request.method, request.url, request.body, { headers });
+        return next.handle(newRequest);
+      }
     }
-
-    const token = this.authenticationService.getToken();
-
-    if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    }
-
 
     return next.handle(request);
   }

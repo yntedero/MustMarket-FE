@@ -12,7 +12,7 @@ export class OfferService {
   constructor(private http: HttpClient) { }
 
   getOffers(cityId?: number, categoryId?: number): Observable<OfferDTO[]> {
-    let url = '/api/offers';
+    let url = 'http://localhost:8080/api/offers';
     if (cityId !== undefined || categoryId !== undefined) {
       url += '?';
       if (cityId !== undefined) {
@@ -25,6 +25,6 @@ export class OfferService {
         url += `categoryId=${categoryId}`;
       }
     }
-    return this.http.get<OfferDTO[]>(url);
+    return this.http.get<OfferDTO[]>(url, { withCredentials: true });
   }
 }

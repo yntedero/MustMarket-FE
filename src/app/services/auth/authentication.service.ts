@@ -20,6 +20,7 @@ export class AuthenticationService {
     return this.http.post('http://localhost:8080/api/authentication', { email, password }, { headers, observe: 'response' })
       .pipe(tap((response: HttpResponse<any>) => {
         const authHeader = response.headers.get('Authorization');
+        console.log("response", response.headers);
         if (authHeader && authHeader.startsWith('Bearer ')) {
           const token = authHeader.substring(7);
           this.cookieService.set('token', token);
