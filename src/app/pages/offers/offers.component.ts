@@ -44,6 +44,12 @@ export class OffersComponent implements  OnInit{
     this.getOffers();
   }
   getOffers(cityId?: number, categoryId?: number) {
+    if (cityId === 0) {
+      cityId = undefined;
+    }
+    if (categoryId === 0) {
+      categoryId = undefined;
+    }
     this.offerService.getOffers(cityId, categoryId).subscribe((offers: OfferDTO[]) => {
       console.log("offers", offers);
       if (offers.length > 0) {

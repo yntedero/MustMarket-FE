@@ -22,8 +22,8 @@ export class OffersFilterComponent {
   @Output() filtersApplied = new EventEmitter<{ cityId: number, categoryId: number }>();
   cities: CityDTO[] = [];
   categories: CategoryDTO[] = [];
-  cityId: number = 1;
-  categoryId: number = 1;
+  cityId: number = 0;
+  categoryId: number = 0;
 
   constructor(private cityService: CityService, private categoryService: CategoryService) { }
 
