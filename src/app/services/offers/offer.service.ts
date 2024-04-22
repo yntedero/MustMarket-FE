@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OfferDTO } from '../../dtos/offer.dto';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {CreateOfferModel} from "../../dtos/create-offer.dto";
 @Injectable({
   providedIn: 'root'
 })
@@ -26,5 +27,9 @@ export class OfferService {
       }
     }
     return this.http.get<OfferDTO[]>(url, { withCredentials: true });
+  }
+  createOffer(offer: CreateOfferModel): Observable<OfferDTO> {
+    const url = 'http://localhost:8080/api/offers';
+    return this.http.post<OfferDTO>(url, offer, { withCredentials: true });
   }
 }

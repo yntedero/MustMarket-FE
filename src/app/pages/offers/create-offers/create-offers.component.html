@@ -1,0 +1,17 @@
+
+<div class="parent">
+  <div class="container active" id="container">
+    <div class="form-container sign-up" >
+      <form>
+        <h1>Create Offer</h1>
+        <br>
+        <span>Enter information about your offer</span>
+        <input type="text" name="title" [(ngModel)]="createOfferObj.title" placeholder="Title">
+        <input type="email" name="email" [(ngModel)]="createOfferObj.description" placeholder="Description">
+<!--        <input type="text" name="phone" [(ngModel)]="createOfferObj.phone" placeholder="Your Number">-->
+<!--        <input type="password" name="password"  [(ngModel)]="signUpObj.password" placeholder="Password">-->
+        <button (click)="onCreateOffer()">Sign Up</button>
+      </form>
+    </div>
+  </div>
+</div>
