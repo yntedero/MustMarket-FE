@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+nav {
+  width: 100%;
+  background: linear-gradient(to right, #5c6bc0, #512da8);
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 15px 0;
+  position: relative; /* For positioning the search box */
+}
+
+nav ul li {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  padding: 15px 20px;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #c9d6ff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+/* Style for the search box */
+nav .search {
+  position: absolute;
+  right: 0;
+  margin: 0;
+  padding: 0;
+}
+
+nav input[type="search"] {
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+  margin-right: 10px;
+  outline: none;
+}
+
+nav button {
+  padding: 10px 20px;
+  background: #fff;
+  color: #512da8;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+nav button:hover {
+  background-color: #c9d6ff;
+  color: #fff;
+}
