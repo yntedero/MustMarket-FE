@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 // import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -10,8 +10,8 @@ import {MessageDto} from "../../dtos/message.dto";
 export class MessagesService {
   constructor(private http: HttpClient) { }
 
-  getMessages(senderId?: number, receiverId?: number): Observable<MessageDto[]> {
-    let url = `http://localhost:8080/messages/${senderId}/${receiverId}`;
+  getMessages(): Observable<MessageDto[]> {
+    let url = `http://localhost:8080/messages`;
     return this.http.get<MessageDto[]>(url, { withCredentials: true });
   }
 }

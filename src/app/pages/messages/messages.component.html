@@ -1,20 +1,18 @@
-<!--<div class="chat-container">-->
-<!--  <div class="users-list">-->
-<!--    <div *ngFor="let user of users" (click)="onSelectUser(user)" [ngClass]="{ 'selected': user === selectedUser }" class="user-item">-->
-<!--      {{ user.name }}-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="messages">-->
-<!--    <div *ngIf="selectedUser" class="message-container">-->
-<!--      <div *ngFor="let message of selectedUser.messages" class="message" [ngClass]="{ 'own-message': message.senderId === currentUser.id, 'their-message': message.senderId !== currentUser.id }">-->
-<!--        {{ message.text }}-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="input-container">-->
-<!--    <input type="text" placeholder="Type your message..." [(ngModel)]="newMessage" class="message-input">-->
-<!--    <button (click)="sendMessage()" class="send-button">Send</button>-->
-<!--  </div>-->
-<!--</div>-->
+<div id="messages">
+  <form (ngSubmit)="onSendMessage()">
+    <label for="toUser">To:</label>
+    <input type="text" id="toUser" name="toUser" [(ngModel)]="toUser" required>
+    <br>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" [(ngModel)]="message" required></textarea>
+    <br>
+    <br>
+    <button type="submit" class="btn btn-primary">Send Message</button>
+  </form>
+  <h2>Received messages</h2>
+  <ol>
+    <li class="message" *ngFor="let receivedMessage of receivedMessages">
+      {{ receivedMessage }}
+    </li>
+  </ol>
+</div>

@@ -1,42 +1,84 @@
-import {Component, OnInit} from '@angular/core';
-import {NgClass, NgFor, NgIf} from "@angular/common";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {CommonModule, NgClass, NgFor, NgIf} from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import {Router} from "@angular/router";
 import {MessagesService} from "../../services/messages/messages.service"
 import {MessageDto} from "../../dtos/message.dto";
+import {Message} from "@stomp/stompjs";
+import {RxStompService} from "../../services/messages/rx-stomp.service";
+import {Subscription} from "rxjs";
+import {rxStompServiceFactory} from "../../services/messages/rx-stomp-service-factory";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-messages',
-  standalone: true,
-  imports: [NgFor, FormsModule, NgIf, NgClass],
   templateUrl: './messages.component.html',
+  standalone:true,
+  imports: [
+    NgFor, FormsModule, NgIf, NgClass,
+    CommonModule, FormsModule
+  ],
+  providers: [
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+    }
+  ],
   styleUrls: ['./messages.component.scss']
 })
 
 
-export class MessagesComponent implements OnInit{
-   messages: MessageDto[] = [
-  //   { id: 1, name: 'User 1', messages: [{ text: 'Message 1', senderId: 1 }, { text: 'Message 2', senderId: 1 }] },
-  //   { id: 2, name: 'User 2', messages: [{ text: 'Message 3', senderId: 2 }, { text: 'Message 4', senderId: 2 }] },
-   ];
-
+export class MessagesComponent implements OnInit , OnDestroy {
+  toUser: string = "";
+  message: string = "";
+  user: string = "";
 
   constructor(
     private router: Router,
-    private messageService: MessagesService
-  ) { }
-
-  ngOnInit() {
-    this.getMessages(1,3);
+    private messageService: MessagesService,
+    private rxStompService: RxStompService,
+    private cookieService: CookieService
+  ) {
   }
 
-  getMessages(senderId?: number, receiverId?: number) {
-    this.messageService.getMessages(senderId, receiverId).subscribe((messages: MessageDto[]) => {
+
+  getMessages() {
+    this.messageService.getMessages().subscribe((messages: MessageDto[]) => {
       console.log("messages", messages);
-      if (messages.length > 0) {
-        this.messages = messages;
-      }
     });
+  }
+
+  receivedMessages: string[] = [];
+  //@ts-ignore
+  private topicSubscription: Subscription;
+
+
+  ngOnInit() {
+    this.getMessages();
+    this.user = this.cookieService.get('user');
+
+    this.topicSubscription = this.rxStompService
+      .watch(`/user/${this.user}/topic`)
+      .subscribe((message: Message) => {
+        this.receivedMessages.push(message.body);
+      });
+  }
+
+  ngOnDestroy() {
+    this.topicSubscription.unsubscribe();
+  }
+
+  onSendMessage() {
+    const toUsername = this.toUser;
+    const messageContent = this.message;
+    const fromUsername = this.user;
+
+    const message = {
+      to: toUsername,
+      message: messageContent,
+      from: fromUsername
+    };
+    this.rxStompService.publish({ destination: '/app/chat', body: JSON.stringify(message) });
   }
 
 }

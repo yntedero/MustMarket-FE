@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-<<<<<<< HEAD
 import { LoginComponent } from './pages/login/login.component';
 import { OffersComponent } from './pages/offers/offers.component';
 import { ProfileComponent } from './pages/profile/profile.component';
