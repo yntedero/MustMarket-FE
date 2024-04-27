@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders, HttpRequest, HttpResponse} from '@angular/commo
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { UserDTO } from '../../dtos/user.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +18,10 @@ export class AuthenticationService {
       Authorization: 'Basic ' + btoa(email + ':' + password),
     });
 
-    return this.http.post('http://localhost:8080/api/authentication', { email, password }, { headers, observe: 'response' })
+    return this.http.post('http://localhost:8080/api/authentication', { email, password }, { headers, observe: 'response', withCredentials: true })
       .pipe(tap((response: HttpResponse<any>) => {
         const authHeader = response.headers.get('Authorization');
-        console.log("response", response.headers);
+        console.log("auth", response.headers.get('Authorization'));
         if (authHeader && authHeader.startsWith('Bearer ')) {
           const token = authHeader.substring(7);
           this.cookieService.set('token', token);
@@ -45,7 +46,10 @@ export class AuthenticationService {
   getToken() {
     return this.cookieService.get('token') || '';
   }
-
+  getUserDetails(): Observable<UserDTO> {
+    const url = 'http://localhost:8080/api/users/details';
+    return this.http.get<UserDTO>(url, { withCredentials: true });
+  }
   // auto adding token bearer to every request to the server
   addToken(request: HttpRequest<any>) {
     const token = this.getToken();

@@ -10,6 +10,13 @@
         <input type="email" name="email" [(ngModel)]="createOfferObj.description" placeholder="Description">
 <!--        <input type="text" name="phone" [(ngModel)]="createOfferObj.phone" placeholder="Your Number">-->
 <!--        <input type="password" name="password"  [(ngModel)]="signUpObj.password" placeholder="Password">-->
+        <select [(ngModel)]="createOfferObj.cityId">
+          <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+        </select>
+
+        <select [(ngModel)]="createOfferObj.categoryId">
+          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
         <button (click)="onCreateOffer()">Sign Up</button>
       </form>
     </div>
