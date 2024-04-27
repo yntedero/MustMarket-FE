@@ -1,0 +1,16 @@
+form{
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 30px;
+}
+.select-container{
+  margin-right: 10px;
+}
+.select{
+  background: white;
+  border-radius: 3px;
+  border: none;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+}
