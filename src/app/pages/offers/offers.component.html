@@ -1,6 +1,6 @@
-<app-offers-filter (filtersApplied)="getOffers($event.cityId, $event.categoryId)"></app-offers-filter>
 <div class="parent">
   <div class="container">
+    <app-offers-filter (filtersApplied)="getOffers($event.cityId, $event.categoryId)"></app-offers-filter>
     <h1>Offers</h1>
     <div class="offers-container">
       <div *ngFor="let offer of offers" class="offer-card">

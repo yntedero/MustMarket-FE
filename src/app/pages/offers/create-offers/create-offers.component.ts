@@ -10,6 +10,7 @@ import {CategoryDTO} from "../../../dtos/category.dto";
 import {OfferService} from "../../../services/offers/offer.service";
 import {CityService} from "../../../services/cities/city.service";
 import {CategoryService} from "../../../services/categories/category.service";
+import {UserDTO} from "../../../dtos/user.dto";
 @Component({
   selector: 'app-create-offers',
   standalone: true,
@@ -27,13 +28,20 @@ export class CreateOffersComponent {
   cities: CityDTO[] = [];
   categories: CategoryDTO[] = [];
 
-  constructor(private router: Router, private offerService: OfferService, private cityService: CityService, private categoryService: CategoryService, private cookieService: CookieService) { }
-
+  constructor(private router: Router,
+              private offerService: OfferService,
+              private cityService: CityService,
+              private categoryService: CategoryService,
+              private cookieService: CookieService,
+              private authService: AuthenticationService
+  ) { }
   ngOnInit() {
     this.cityService.getAllCities().subscribe(cities => this.cities = cities);
     this.categoryService.getAllCategories().subscribe(categories => this.categories = categories);
+    this.authService.getUserDetails().subscribe((user: UserDTO) => {
+      this.createOfferObj.userId = user.userId;
+    });
   }
-
   onCreateOffer() {
     this.offerService.createOffer(this.createOfferObj).subscribe(response => {
       alert('Offer Created Successfully');
