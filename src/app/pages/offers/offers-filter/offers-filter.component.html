@@ -8,7 +8,7 @@
   </div>
   <div class="select-container">
     <p>Category:</p>
-    <select [(ngModel)]="categoryId" name="category" class="select">
+    <select [(ngModel)]="categoryId" (change)="applyFilters()" name="category" class="select">
       <option value="">Select a category</option>
       <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
     </select>

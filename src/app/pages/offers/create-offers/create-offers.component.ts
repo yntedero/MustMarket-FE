@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../../services/auth/authentication.service";
 import {CookieService} from "ngx-cookie-service";
-import {NgClass} from "@angular/common";
+import {NgClass, NgForOf} from "@angular/common";
 import {CreateOfferModel} from "../../../dtos/create-offer.dto";
 import {CityDTO} from "../../../dtos/city.dto";
 import {CategoryDTO} from "../../../dtos/category.dto";
@@ -14,19 +14,21 @@ import {UserDTO} from "../../../dtos/user.dto";
 @Component({
   selector: 'app-create-offers',
   standalone: true,
-    imports: [
-        FormsModule,
-        NgClass
-    ],
+  imports: [
+    FormsModule,
+    NgClass,
+    NgForOf
+  ],
   templateUrl: './create-offers.component.html',
   styleUrl: './create-offers.component.scss'
 })
 export class CreateOffersComponent {
-
-
+  @Output() filtersApplied = new EventEmitter<{ cityId: string, categoryId: string }>();
   createOfferObj: CreateOfferModel = new CreateOfferModel();
   cities: CityDTO[] = [];
   categories: CategoryDTO[] = [];
+  cityId: number = 0;
+  categoryId: number = 0;
 
   constructor(private router: Router,
               private offerService: OfferService,
@@ -36,7 +38,9 @@ export class CreateOffersComponent {
               private authService: AuthenticationService
   ) { }
   ngOnInit() {
-    this.cityService.getAllCities().subscribe(cities => this.cities = cities);
+    this.cityService.getAllCities().subscribe(cities => {
+      this.cities = cities;
+    });
     this.categoryService.getAllCategories().subscribe(categories => this.categories = categories);
     this.authService.getUserDetails().subscribe((user: UserDTO) => {
       this.createOfferObj.userId = user.userId;
