@@ -48,10 +48,8 @@ export class CreateOffersComponent {
     });
   }
   ngOnInit() {
-    this.cityService.getAllCities().subscribe(cities => {
-      this.cities = cities;
-    });
-    this.categoryService.getAllCategories().subscribe(categories => this.categories = categories);
+    this.cities = this.cityService.getAllCities();
+    this.categories = this.categoryService.getAllCategories();
     this.authService.getUserDetails().subscribe((user: UserDTO) => {
       console.log(user);
       this.createOfferObj.userId = user.id;

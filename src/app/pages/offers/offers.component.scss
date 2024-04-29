@@ -6,7 +6,10 @@
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
 }
-
+a{
+  text-decoration: none;
+  color: #333;
+}
 .parent{
   background-color: #c9d6ff;
   background: linear-gradient(to right, #e2e2e2, #c9d6ff);

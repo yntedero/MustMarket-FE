@@ -1,10 +1,14 @@
-<div class="offer-card">
-  <div class="offer-image"></div>
-  <div class="offer-info">
-    <h2>{{ offer.title }}</h2>
-    <p>{{ offer.description }}</p>
-    <span>City: {{ getCityNameById(offer.cityId) }}</span>
-    <br>
-    <span>Category: {{ getCategoryNameById(offer.categoryId) }}</span>
+<div class="parent">
+  <div class="container">
+    <div class="offer-card">
+      <div class="offer-image"></div>
+      <div class="offer-info">
+        <h2>{{ offer.title }}</h2>
+        <p>{{ offer.description }}</p>
+        <span>City: {{ getCityNameById(offer.cityId) }}</span>
+        <br>
+        <span>Category: {{ getCategoryNameById(offer.categoryId) }}</span>
+      </div>
+    </div>
   </div>
 </div>
