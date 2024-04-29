@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommonModule, NgClass, NgFor, NgIf} from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import {Router} from "@angular/router";
+import {Router, RouterModule} from "@angular/router";
 import {MessagesService} from "../../services/messages/messages.service"
 import {MessageDto} from "../../dtos/message.dto";
 import {Message} from "@stomp/stompjs";
@@ -16,7 +16,8 @@ import {CookieService} from "ngx-cookie-service";
   standalone:true,
   imports: [
     NgFor, FormsModule, NgIf, NgClass,
-    CommonModule, FormsModule
+    CommonModule, FormsModule,
+    RouterModule
   ],
   providers: [
     {
@@ -108,10 +109,8 @@ export class MessagesComponent implements OnInit , OnDestroy {
     const chatRoomIndex = this.chatRooms.findIndex(room => room.user === otherUser);
 
     if (chatRoomIndex === -1) {
-      // If the chat room doesn't exist, create a new one and push the message
       this.chatRooms.push({ user: otherUser, messages: [message] });
     } else {
-      // If the chat room already exists, push the message to its messages array
       this.chatRooms[chatRoomIndex].messages.push(message);
     }
   }
