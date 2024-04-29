@@ -47,7 +47,7 @@ export class AuthenticationService {
     return this.cookieService.get('token') || '';
   }
   getUserDetails(): Observable<UserDTO> {
-    const url = 'http://localhost:8080/api/users/details';
+    const url = 'http://localhost:8080/api/users/user-details';
     return this.http.get<UserDTO>(url, { withCredentials: true });
   }
   // auto adding token bearer to every request to the server
