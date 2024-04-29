@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgFor, NgIf} from "@angular/common";
 import {OfferDTO} from "../../dtos/offer.dto";
@@ -11,6 +11,7 @@ import { CategoryService } from '../../services/categories/category.service';
 import {CityDTO} from "../../dtos/city.dto";
 import {CategoryDTO} from "../../dtos/category.dto";
 import {AuthenticationService} from "../../services/auth/authentication.service";
+import routerLink from "@angular/router";
 @Component({
   selector: 'app-offers',
   standalone: true,
@@ -19,8 +20,9 @@ import {AuthenticationService} from "../../services/auth/authentication.service"
     NgClass,
     NgFor,
     OffersFilterComponent,
-    NgIf
-  ],
+    NgIf,
+    RouterModule
+    ],
   templateUrl: './offers.component.html',
   styleUrl: './offers.component.scss'
 })
@@ -61,23 +63,23 @@ export class OffersComponent implements  OnInit{
     });
   }
   getAllCities() {
-    this.cityService.getAllCities().subscribe((cities: CityDTO[]) => {
-      this.cities = cities;
-    });
+    // this.cityService.getAllCities().subscribe((cities: CityDTO[]) => {
+    //   this.cities = cities;
+    // });
+    this.cities = this.cityService.getAllCities();
   }
   getAllCategories() {
-    this.categoryService.getAllCategories().subscribe((categories: CategoryDTO[]) => {
-      this.categories = categories;
-    });
+    // this.categoryService.getAllCategories().subscribe((categories: CategoryDTO[]) => {
+    //   this.categories = categories;
+    // });
+    this.categories = this.categoryService.getAllCategories();
   }
   getCityNameById(id: number): string {
-    const city = this.cities.find(city => city.id === id);
-    return city ? city.name : '';
+    return this.cityService.getCityNameById(id);
   }
 
   getCategoryNameById(id: number): string {
-    const category = this.categories.find(category => category.id === id);
-    return category ? category.name : '';
+    return this.categoryService.getCategoryNameById(id);
   }
   deleteOffer(id: number) {
     this.offerService.deleteOffer(id).subscribe(() => {

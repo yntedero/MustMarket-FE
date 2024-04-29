@@ -7,14 +7,25 @@ import { CityDTO } from '../../dtos/city.dto';
   providedIn: 'root'
 })
 export class CityService {
+  cities: CityDTO[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.getAllCities();
+
+  }
 
   createCity(city: CityDTO): Observable<CityDTO> {
     return this.http.post<CityDTO>('http://localhost:8080/api/cities', city);
   }
 
-  getAllCities(): Observable<CityDTO[]> {
-    return this.http.get<CityDTO[]>('http://localhost:8080/api/cities');
+  getAllCities() {
+    this.http.get<CityDTO[]>('http://localhost:8080/api/cities').subscribe((cities: CityDTO[]) => {
+      this.cities = cities;
+    });
+    return this.cities;
+  }
+  getCityNameById(id: number): string {
+    const city = this.cities.find(city => city.id === id);
+    return city ? city.name : '';
   }
 }

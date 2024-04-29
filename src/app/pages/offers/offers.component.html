@@ -4,6 +4,7 @@
     <h1>Offers</h1>
     <div class="offers-container">
       <div *ngFor="let offer of offers" class="offer-card">
+        <a [routerLink]="['/offer-details', offer.id]">DINAH</a>
         <div class="offer-image"></div>
         <div class="offer-info">
           <h2>{{ offer.title }}</h2>
@@ -13,6 +14,7 @@
           <span>Category: {{ getCategoryNameById(offer.categoryId) }}</span>
           <button *ngIf="authService.isAdmin()" (click)="deleteOffer(offer.id)">Delete</button>
         </div>
+
       </div>
     </div>
   </div>

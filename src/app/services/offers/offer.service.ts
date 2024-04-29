@@ -28,6 +28,9 @@ export class OfferService {
     }
     return this.http.get<OfferDTO[]>(url, { withCredentials: true });
   }
+  getOfferById(id: number): Observable<OfferDTO> {
+    return this.http.get<OfferDTO>(`http://localhost:8080/api/offers/${id}`);
+  }
   deleteOffer(id: number): Observable<void> {
     return this.http.delete<void>(`http://localhost:8080/api/offers/${id}`);
   }

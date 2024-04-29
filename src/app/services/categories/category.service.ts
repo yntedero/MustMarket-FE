@@ -7,14 +7,25 @@ import { CategoryDTO } from '../../dtos/category.dto';
   providedIn: 'root'
 })
 export class CategoryService {
+  categories: CategoryDTO[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.getAllCategories();
+
+  }
 
   createCategory(category: CategoryDTO): Observable<CategoryDTO> {
     return this.http.post<CategoryDTO>('http://localhost:8080/api/categories', category);
   }
 
-  getAllCategories(): Observable<CategoryDTO[]> {
-    return this.http.get<CategoryDTO[]>('http://localhost:8080/api/categories');
+  getAllCategories() {
+    this.http.get<CategoryDTO[]>('http://localhost:8080/api/categories').subscribe((categories: CategoryDTO[]) => {
+      this.categories = categories;
+    });
+    return this.categories;
+  }
+  getCategoryNameById(id: number): string {
+    const category = this.categories.find(category => category.id === id);
+    return category ? category.name : '';
   }
 }
