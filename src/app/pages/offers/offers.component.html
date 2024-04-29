@@ -3,6 +3,9 @@
     <app-offers-filter (filtersApplied)="getOffers($event.cityId, $event.categoryId)"></app-offers-filter>
     <h1>Offers</h1>
     <div class="offers-container">
+      <div *ngIf="offers.length === 0">
+        <p>No offers found.</p>
+      </div>
       <div *ngFor="let offer of offers" class="offer-card">
         <a [routerLink]="['/offer-details', offer.id]">
           <div class="offer-image"></div>
@@ -15,7 +18,7 @@
           <span>City: {{ getCityNameById(offer.cityId) }}</span>
           <br>
           <span>Category: {{ getCategoryNameById(offer.categoryId) }}</span>
-          <button *ngIf="authService.isAdmin()" (click)="deleteOffer(offer.id)">Delete</button>
+          <button *ngIf="isAdmin" (click)="deleteOffer(offer.id)">Delete</button>
         </div>
       </div>
     </div>

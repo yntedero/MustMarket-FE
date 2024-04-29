@@ -28,8 +28,10 @@ export class OffersFilterComponent {
   constructor(private cityService: CityService, private categoryService: CategoryService) { }
 
   ngOnInit() {
-    this.cities = this.cityService.getAllCities();
-    this.categories = this.categoryService.getAllCategories();
+    this.cityService.getAllCities().subscribe(cities => {
+      this.cities = cities;
+    });
+    this.categoryService.getAllCategories().subscribe(categories => this.categories = categories);
   }
 
   applyFilters() {

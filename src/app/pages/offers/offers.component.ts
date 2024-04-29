@@ -29,6 +29,7 @@ import routerLink from "@angular/router";
 export class OffersComponent implements  OnInit{
   cities: CityDTO[] = [];
   categories: CategoryDTO[] = [];
+  isAdmin: boolean = false;
   offers: OfferDTO[] = [
     // new OfferDTO(1, 'Title 1', 'Description 1', 1, 1, 1),
     // new OfferDTO(2, 'Title 2', 'Description 2', 2, 2, 2),
@@ -47,6 +48,9 @@ export class OffersComponent implements  OnInit{
     this.getAllCities();
     this.getAllCategories();
     this.getOffers();
+    this.authService.isAdmin().subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    });
   }
   getOffers(cityId?: number, categoryId?: number) {
     if (cityId === 0) {
@@ -57,27 +61,29 @@ export class OffersComponent implements  OnInit{
     }
     this.offerService.getOffers(cityId, categoryId).subscribe((offers: OfferDTO[]) => {
       console.log("offers", offers);
-      if (offers.length > 0) {
-        this.offers = offers;
-      }
+      this.offers = offers;
     });
   }
   getAllCities() {
     // this.cityService.getAllCities().subscribe((cities: CityDTO[]) => {
     //   this.cities = cities;
     // });
-    this.cities = this.cityService.getAllCities();
+    this.cityService.getAllCities().subscribe(cities => {
+      this.cities = cities;
+    });
   }
   getAllCategories() {
     // this.categoryService.getAllCategories().subscribe((categories: CategoryDTO[]) => {
     //   this.categories = categories;
     // });
-    this.categories = this.categoryService.getAllCategories();
+    this.categoryService.getAllCategories().subscribe(categories => this.categories = categories);
   }
   getCityNameById(id: number): string {
     return this.cityService.getCityNameById(id);
   }
-
+  // isAdmin(): boolean {
+  //   return this.authService.isAdmin();
+  // }
   getCategoryNameById(id: number): string {
     return this.categoryService.getCategoryNameById(id);
   }

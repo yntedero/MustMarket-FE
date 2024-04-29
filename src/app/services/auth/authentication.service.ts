@@ -48,7 +48,9 @@ export class AuthenticationService {
   }
   isAdmin(): Observable<boolean> {
     return this.getUserDetails().pipe(
-      map((user: UserDTO) => user.role === 'ADMIN')
+      map((user: UserDTO) => {
+          return user.role === 'ADMIN';
+      })
     );
   }
   getUserDetails(): Observable<UserDTO> {
