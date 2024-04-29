@@ -1,18 +1,41 @@
-<div id="messages">
-  <form (ngSubmit)="onSendMessage()">
-    <label for="toUser">To:</label>
-    <input type="text" id="toUser" name="toUser" [(ngModel)]="toUser" required>
-    <br>
-    <label for="message">Message:</label>
-    <textarea id="message" name="message" [(ngModel)]="message" required></textarea>
-    <br>
-    <br>
-    <button type="submit" class="btn btn-primary">Send Message</button>
-  </form>
-  <h2>Received messages</h2>
-  <ol>
-    <li class="message" *ngFor="let receivedMessage of receivedMessages">
-      {{ receivedMessage }}
-    </li>
-  </ol>
-</div>
+<main>
+  <div class="sideNav2">
+    <div class="SideNavhead">
+      <h2>Chats</h2>
+      <i class="fa-solid fa-filter"></i>
+      <i class="fa-solid fa-user-plus"></i>
+    </div>
+    <div class="SearchInputHolder">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input class="searchInput" placeholder="Search For Chat..">
+      <hr>
+    </div>
+    <ul>
+      <li class="group" *ngFor="let chatRoom of chatRooms" (click)="selectChatRoom(chatRoom)">
+        <div class="avatar"></div>
+        <p class="GroupName">{{ chatRoom.user }}</p>
+        <!-- Additional logic can be added here to display recent message content -->
+      </li>
+    </ul>
+  </div>
+
+  <section class="Chat">
+    <div class="ChatHead">
+      <li class="group">
+        <div class="avatar"></div>
+        <p class="GroupName">{{ selectedChatRoom?.user }}</p>
+      </li>
+    </div>
+    <div class="MessageContainer">
+      <div class="message" [ngClass]="{'me': message.fromUser === user, 'you': message.toUser == user}" *ngFor="let message of selectedChatRoom?.messages">
+        <p class="messageContent">
+          {{ message.message }}
+        </p>
+      </div>
+    </div>
+    <form id="MessageForm">
+      <input type="text" id="MessageInput" [(ngModel)]="message" name="message" placeholder="Message...">
+      <button class="Send" (click)="onSendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+  </section>
+</main>
