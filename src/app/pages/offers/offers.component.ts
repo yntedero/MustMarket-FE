@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormsModule} from "@angular/forms";
-import {NgClass, NgFor} from "@angular/common";
+import {NgClass, NgFor, NgIf} from "@angular/common";
 import {OfferDTO} from "../../dtos/offer.dto";
 import {OffersFilterComponent} from "./offers-filter/offers-filter.component";
 import { OfferService } from '../../services/offers/offer.service';
@@ -10,6 +10,7 @@ import { CityService } from '../../services/cities/city.service';
 import { CategoryService } from '../../services/categories/category.service';
 import {CityDTO} from "../../dtos/city.dto";
 import {CategoryDTO} from "../../dtos/category.dto";
+import {AuthenticationService} from "../../services/auth/authentication.service";
 @Component({
   selector: 'app-offers',
   standalone: true,
@@ -17,7 +18,8 @@ import {CategoryDTO} from "../../dtos/category.dto";
     FormsModule,
     NgClass,
     NgFor,
-    OffersFilterComponent
+    OffersFilterComponent,
+    NgIf
   ],
   templateUrl: './offers.component.html',
   styleUrl: './offers.component.scss'
@@ -34,7 +36,8 @@ export class OffersComponent implements  OnInit{
     private router: Router,
     private offerService: OfferService,
     private cityService: CityService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    public authService: AuthenticationService
   ) { }
   // constructor(private router: Router) { }
 
@@ -75,5 +78,12 @@ export class OffersComponent implements  OnInit{
   getCategoryNameById(id: number): string {
     const category = this.categories.find(category => category.id === id);
     return category ? category.name : '';
+  }
+  deleteOffer(id: number) {
+    this.offerService.deleteOffer(id).subscribe(() => {
+      this.getOffers();
+    }, error => {
+      // Handle error
+    });
   }
 }

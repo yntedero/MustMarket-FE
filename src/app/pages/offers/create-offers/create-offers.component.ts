@@ -53,7 +53,7 @@ export class CreateOffersComponent {
     });
     this.categoryService.getAllCategories().subscribe(categories => this.categories = categories);
     this.authService.getUserDetails().subscribe((user: UserDTO) => {
-      console.log(user.id);
+      console.log(user);
       this.createOfferObj.userId = user.id;
     });
   }

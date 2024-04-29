@@ -11,6 +11,7 @@
           <span>City: {{ getCityNameById(offer.cityId) }}</span>
           <br>
           <span>Category: {{ getCategoryNameById(offer.categoryId) }}</span>
+          <button *ngIf="authService.isAdmin()" (click)="deleteOffer(offer.id)">Delete</button>
         </div>
       </div>
     </div>

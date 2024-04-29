@@ -2,7 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {HttpClient, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
 
-import { tap } from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { UserDTO } from '../../dtos/user.dto';
@@ -45,6 +45,11 @@ export class AuthenticationService {
   // getting token if it exists. If it doesn't, return an empty string
   getToken() {
     return this.cookieService.get('token') || '';
+  }
+  isAdmin(): Observable<boolean> {
+    return this.getUserDetails().pipe(
+      map((user: UserDTO) => user.role === 'ADMIN')
+    );
   }
   getUserDetails(): Observable<UserDTO> {
     const url = 'http://localhost:8080/api/users/user-details';
