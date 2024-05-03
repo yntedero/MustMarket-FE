@@ -1,19 +1,18 @@
 export class UserDTO {
-  id: number;
-  contact: string;
+  userId: number;
   email: string;
   firstName: string;
   lastName: string;
+  contact: string;
   role: string;
   status: string;
-
-  constructor() {
-    this.id = 0;
-    this.contact = "";
-    this.email = "";
-    this.firstName = "";
-    this.lastName = "";
-    this.role = "USER";
-    this.status = "ACTIVE";
+  constructor(id:number, email:string, firstName:string, lastName:string, contact:string, role:string, status: string) {
+    this.userId = id;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.contact = contact;
+    this.role =role;
+    this.status=status;
   }
 }

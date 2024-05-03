@@ -1,0 +1,49 @@
+<main>
+  <div class="sideNav2">
+    <div class="SideNavhead">
+      <h2>Chats</h2>
+      <i class="fa-solid fa-filter"></i>
+      <i class="fa-solid fa-user-plus"></i>
+    </div>
+    <div class="SearchInputHolder">
+      <i class="fa-solid fa-magnifying-glass"></i>
+        <input class="searchInput" placeholder="Search For Chat..">
+      <hr>
+    </div>
+    <ul>
+      <li class="group" *ngFor="let chatRoom of chatRooms" (click)="selectChatRoom(chatRoom)">
+        <div class="avatar"></div>
+        <p class="GroupName">{{ chatRoom.user }}</p>
+      </li>
+    </ul>
+<!--    <ul>-->
+<!--      <li class="group popup" *ngFor="let user of users" (click)="selectFromList(user.email)">-->
+<!--        <div class="avatar"></div>-->
+<!--        <p class="GroupName">{{ user.email }}</p>-->
+<!--      </li>-->
+<!--    </ul>-->
+  </div>
+
+  <section class="Chat">
+    <div class="ChatHead">
+      <li class="group">
+        <div class="avatar"></div>
+        <p class="GroupName">{{ selectedChatRoom?.user }}</p>
+      </li>
+    </div>
+    <div class="MessageContainer">
+      <div class="message" [ngClass]="{'me': message.fromUser === user, 'you': message.toUser == user}" *ngFor="let message of selectedChatRoom?.messages">
+        <p class="messageContent">
+          {{ message.message }}
+        </p>
+        <div class="messageDetails">
+          <div class="messageTime">{{message.timestamp}}</div>
+        </div>
+      </div>
+    </div>
+    <form id="MessageForm">
+      <input type="text" id="MessageInput" [(ngModel)]="message" name="message" placeholder="Message...">
+      <button class="Send" (click)="onSendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+  </section>
+</main>

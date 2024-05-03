@@ -37,7 +37,8 @@ export class LoginComponent {
       alert("User Found...");
       console.log("token", this.authenticationService.getToken());
       this.cookieService.set('token', this.authenticationService.getToken());
-      this.cookieService.set('user', JSON.stringify(response.body));
+      this.cookieService.set('user', this.loginObj.email);
+      console.log(this.authenticationService.getToken()+" "+JSON.stringify(response.body))
       this.router.navigateByUrl('/offers');
     }, error => {
       alert("No User Found");
