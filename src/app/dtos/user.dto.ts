@@ -1,17 +1,18 @@
 export class UserDTO {
-  id: number;
-  title: string;
-  description: string;
   userId: number;
-  cityId: number;
-  categoryId: number;
-
-  constructor() {
-    this.id = 0;
-    this.title = "";
-    this.description = "";
-    this.userId = 0;
-    this.cityId = 0;
-    this.categoryId = 0;
+  email: string;
+  firstName: string;
+  lastName: string;
+  contact: string;
+  role: string;
+  status: string;
+  constructor(id:number, email:string, firstName:string, lastName:string, contact:string, role:string, status: string) {
+    this.userId = id;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.contact = contact;
+    this.role =role;
+    this.status=status;
   }
 }
