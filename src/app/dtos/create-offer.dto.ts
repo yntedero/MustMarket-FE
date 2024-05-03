@@ -11,7 +11,7 @@ export class CreateOfferModel {
     this.title = "";
     this.description = "";
     this.userId = 0;
-    this.cityId = 0;
-    this.categoryId = 0;
+    this.cityId = 1;
+    this.categoryId = 1;
   }
 }

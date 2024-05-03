@@ -2,7 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {HttpClient, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
 
-import { tap } from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { UserDTO } from '../../dtos/user.dto';
@@ -46,8 +46,15 @@ export class AuthenticationService {
   getToken() {
     return this.cookieService.get('token') || '';
   }
+  isAdmin(): Observable<boolean> {
+    return this.getUserDetails().pipe(
+      map((user: UserDTO) => {
+          return user.role === 'ADMIN';
+      })
+    );
+  }
   getUserDetails(): Observable<UserDTO> {
-    const url = 'http://localhost:8080/api/users/details';
+    const url = 'http://localhost:8080/api/users/user-details';
     return this.http.get<UserDTO>(url, { withCredentials: true });
   }
   // auto adding token bearer to every request to the server
