@@ -40,6 +40,7 @@ main {
 
 }
 
+
 .SideNavhead {
   display: flex;
   align-items: center;
@@ -52,6 +53,21 @@ main {
   font-size: 1.8rem;
   margin-right: auto;
 
+}
+
+.popup.active {
+  display: block;
+}
+.popup {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: #000;
+  overflow-y: auto;
+  border-radius: 8px;
 }
 
 .SideNavhead i {

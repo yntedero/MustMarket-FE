@@ -2,12 +2,16 @@
   <div class="sideNav2">
     <div class="SideNavhead">
       <h2>Chats</h2>
-      <i class="fa-solid fa-filter"></i>
-      <i class="fa-solid fa-user-plus"></i>
     </div>
     <div class="SearchInputHolder">
       <i class="fa-solid fa-magnifying-glass"></i>
-        <input class="searchInput" placeholder="Search For Chat..">
+      <input class="searchInput" placeholder="Search For Chat.." (click)="togglePopup()">
+      <ul class="popup" [class.active]="isPopupActive">
+        <li class="group" *ngFor="let user of users" (click)="selectFromList(user.email); hidePopup()">
+          <div class="avatar"></div>
+          <p class="GroupName">{{ user.email }}</p>
+        </li>
+      </ul>
       <hr>
     </div>
     <ul>
@@ -16,12 +20,7 @@
         <p class="GroupName">{{ chatRoom.user }}</p>
       </li>
     </ul>
-<!--    <ul>-->
-<!--      <li class="group popup" *ngFor="let user of users" (click)="selectFromList(user.email)">-->
-<!--        <div class="avatar"></div>-->
-<!--        <p class="GroupName">{{ user.email }}</p>-->
-<!--      </li>-->
-<!--    </ul>-->
+
   </div>
 
   <section class="Chat">

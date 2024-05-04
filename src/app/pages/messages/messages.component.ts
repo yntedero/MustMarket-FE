@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommonModule, NgClass, NgFor, NgIf} from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import {Router, RouterModule} from "@angular/router";
@@ -33,15 +33,11 @@ import {UserDTO} from "../../dtos/user.dto";
 
 export class MessagesComponent implements OnInit , OnDestroy {
   chatRooms: { user: string, messages: MessageDto[] }[] = [];
-
-  // create another array, where u will have a list of all users,
-  // when you click on one of them selected user will be chosen from there,
-  // also popup appears when u touch search input, by writing desired email users will be reduced and will stay only needed.
-  // because of the ws, message section will appear immidiately (dont needed artificially add new messages or refresh a page)
   users: UserDTO[] = [];
   selectedChatRoom: { user: string, messages: MessageDto[] } | null = null;
   message: string = "";
   user: string = "";
+
 
   constructor(
     private router: Router,
@@ -57,7 +53,6 @@ export class MessagesComponent implements OnInit , OnDestroy {
       console.log("messages", messages);
       messages.forEach(message => {
         this.processMessage(message);
-
       });
 
     });
@@ -84,9 +79,7 @@ export class MessagesComponent implements OnInit , OnDestroy {
       });
 
     this.messageService.getAllUsers().subscribe(users => {
-      users.forEach(user=>{
-        this.users.push(user);
-      })
+      this.users = users;
       console.log(this.users);
     });
   }
@@ -107,19 +100,27 @@ export class MessagesComponent implements OnInit , OnDestroy {
       message: messageContent,
       from: fromUsername,
       timestamp: timeStamp
-
     };
     this.rxStompService.publish({ destination: '/app/chat', body: JSON.stringify(message) });
     this.message = "";
+    let existingChat = this.chatRooms.find(room => room.user === toUsername);
+    if (!existingChat) {
+      existingChat = { user: toUsername, messages: [] };
+      this.chatRooms.push(existingChat);
+    }
+    this.selectedChatRoom = existingChat;
   }
 
   selectChatRoom(chatRoom: { user: string, messages: MessageDto[] }) {
     this.selectedChatRoom = chatRoom;
   }
   selectFromList(email: string) {
-    // @ts-ignore
-    const newRoom = { user: email, messages: [] }
-    this.selectedChatRoom = newRoom;
+    const existingChat = this.chatRooms.find(room => room.user === email);
+    if (existingChat) {
+      this.selectedChatRoom = existingChat;
+    } else {
+      this.selectedChatRoom = { user: email, messages: [] };
+    }
   }
 
   processMessage(message: MessageDto) {
@@ -146,4 +147,24 @@ export class MessagesComponent implements OnInit , OnDestroy {
     const minutes = now.getMinutes().toString().padStart(2, '0');
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   }
+
+
+  isPopupActive: boolean = false;
+
+  togglePopup() {
+    this.isPopupActive = !this.isPopupActive;
+  }
+
+  hidePopup() {
+    this.isPopupActive = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.searchInput') && !target.closest('.popup')) {
+      this.hidePopup();
+    }
+  }
+
 }
