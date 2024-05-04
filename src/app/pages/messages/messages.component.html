@@ -4,8 +4,7 @@
       <h2>Chats</h2>
     </div>
     <div class="SearchInputHolder">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <input class="searchInput" placeholder="Search For Chat.."  (input)="onInput($event)" (click)="togglePopup()">
+      <input class="searchInput" placeholder="Search.."  (input)="onInput($event)" (click)="togglePopup()">
       <ul class="popup" [class.active]="isPopupActive">
         <li class="group" *ngFor="let user of filteredUsers" (click)="selectFromList(user.email); hidePopup()">
           <div class="avatar"></div>
@@ -42,7 +41,7 @@
     </div>
     <form id="MessageForm">
       <input type="text" id="MessageInput" [(ngModel)]="message" name="message" placeholder="Message...">
-      <button class="Send" (click)="onSendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+      <button class="Send" (click)="onSendMessage()">&rarr;</button>
     </form>
   </section>
 </main>

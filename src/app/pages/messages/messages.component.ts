@@ -70,8 +70,8 @@ export class MessagesComponent implements OnInit , OnDestroy {
       });
 
     this.messageService.getAllUsers().subscribe(users => {
-      this.users = users;
-      this.filteredUsers = users || [];
+      this.users = users.filter(user => user.email !== this.user);
+      this.filteredUsers = this.users;
       console.log(this.users);
     });
   }
