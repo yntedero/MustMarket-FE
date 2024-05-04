@@ -5,9 +5,9 @@
     </div>
     <div class="SearchInputHolder">
       <i class="fa-solid fa-magnifying-glass"></i>
-      <input class="searchInput" placeholder="Search For Chat.." (click)="togglePopup()">
+      <input class="searchInput" placeholder="Search For Chat.."  (input)="onInput($event)" (click)="togglePopup()">
       <ul class="popup" [class.active]="isPopupActive">
-        <li class="group" *ngFor="let user of users" (click)="selectFromList(user.email); hidePopup()">
+        <li class="group" *ngFor="let user of filteredUsers" (click)="selectFromList(user.email); hidePopup()">
           <div class="avatar"></div>
           <p class="GroupName">{{ user.email }}</p>
         </li>
@@ -15,7 +15,7 @@
       <hr>
     </div>
     <ul>
-      <li class="group" *ngFor="let chatRoom of chatRooms" (click)="selectChatRoom(chatRoom)">
+      <li class="group" *ngFor="let chatRoom of chatRooms" (click)="selectFromList(chatRoom.user)">
         <div class="avatar"></div>
         <p class="GroupName">{{ chatRoom.user }}</p>
       </li>

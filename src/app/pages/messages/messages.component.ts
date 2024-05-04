@@ -34,6 +34,7 @@ import {UserDTO} from "../../dtos/user.dto";
 export class MessagesComponent implements OnInit , OnDestroy {
   chatRooms: { user: string, messages: MessageDto[] }[] = [];
   users: UserDTO[] = [];
+  filteredUsers: UserDTO[] = [];
   selectedChatRoom: { user: string, messages: MessageDto[] } | null = null;
   message: string = "";
   user: string = "";
@@ -47,16 +48,6 @@ export class MessagesComponent implements OnInit , OnDestroy {
   ) {
   }
 
-
-  getMessages() {
-    this.messageService.getMessages().subscribe((messages: MessageDto[]) => {
-      console.log("messages", messages);
-      messages.forEach(message => {
-        this.processMessage(message);
-      });
-
-    });
-  }
   //@ts-ignore
   private topicSubscription: Subscription;
 
@@ -80,12 +71,22 @@ export class MessagesComponent implements OnInit , OnDestroy {
 
     this.messageService.getAllUsers().subscribe(users => {
       this.users = users;
+      this.filteredUsers = users || [];
       console.log(this.users);
     });
   }
 
   ngOnDestroy() {
     this.topicSubscription.unsubscribe();
+  }
+
+  getMessages() {
+    this.messageService.getMessages().subscribe((messages: MessageDto[]) => {
+      console.log("messages", messages);
+      messages.forEach(message => {
+        this.processMessage(message);
+      });
+    });
   }
 
   onSendMessage() {
@@ -111,9 +112,6 @@ export class MessagesComponent implements OnInit , OnDestroy {
     this.selectedChatRoom = existingChat;
   }
 
-  selectChatRoom(chatRoom: { user: string, messages: MessageDto[] }) {
-    this.selectedChatRoom = chatRoom;
-  }
   selectFromList(email: string) {
     const existingChat = this.chatRooms.find(room => room.user === email);
     if (existingChat) {
@@ -121,6 +119,17 @@ export class MessagesComponent implements OnInit , OnDestroy {
     } else {
       this.selectedChatRoom = { user: email, messages: [] };
     }
+  }
+
+  keyword: string = '';
+  onInput(event: any) {
+    this.keyword = event.target.value;
+    this.searchFilter();
+  }
+  searchFilter(){
+    this.filteredUsers = this.users.filter(user =>
+      user?.email?.toLowerCase().includes(this.keyword)
+    );
   }
 
   processMessage(message: MessageDto) {
