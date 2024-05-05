@@ -6,9 +6,10 @@
         <h1>Create Account</h1>
         <br>
         <span>Enter you personal info for registration</span>
-        <input type="text" name="name" [(ngModel)]="signUpObj.name" placeholder="Name">
+        <input type="text" name="name" [(ngModel)]="signUpObj.firstName" placeholder="First Name">
+        <input type="text" name="name" [(ngModel)]="signUpObj.lastName" placeholder="Last Name">
         <input type="email" name="email" [(ngModel)]="signUpObj.email" placeholder="Email">
-        <input type="text" name="phone" [(ngModel)]="signUpObj.phone" placeholder="Your Number">
+        <input type="text" name="phone" [(ngModel)]="signUpObj.contact" placeholder="Your Number">
         <input type="password" name="password"  [(ngModel)]="signUpObj.password" placeholder="Password">
         <button (click)="onRegister()">Sign Up</button>
       </form>

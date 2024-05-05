@@ -47,16 +47,18 @@ export class LoginComponent {
 }
 
 export class SignUpModel  {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone: string;
+  contact: string;
   password: string;
 
   constructor() {
     this.email = "";
-    this.name = "";
-    this.phone = "";
-    this.password= ""
+    this.firstName = "";
+    this.contact = "";
+    this.password= "";
+    this.lastName = "";
   }
 }
 
