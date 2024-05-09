@@ -67,11 +67,21 @@ export class CreateOffersComponent {
     this.fileToUpload = files.item(0);
   }
   CreateOffer() {
-    console.log(this.createOfferForm.value);
-    this.offerService.createOffer(this.createOfferForm.value).subscribe(response => {
-      alert('Offer Created Successfully');
-      this.router.navigateByUrl('/offers');
-    });
+    if (this.fileToUpload !== null) {
+      const formData: FormData = new FormData();
+      formData.append('file', this.fileToUpload, this.fileToUpload.name);
+      formData.append('offer', JSON.stringify(this.createOfferForm.value));
+
+      this.offerService.createOfferWithFile(formData).subscribe(response => {
+        alert('Offer Created Successfully');
+        this.router.navigateByUrl('/offers');
+      });
+    } else {
+      this.offerService.createOffer(this.createOfferForm.value).subscribe(response => {
+        alert('Offer Created Successfully');
+        this.router.navigateByUrl('/offers');
+      });
+    }
   }
 }
 

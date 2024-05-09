@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 // import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OfferDTO } from '../../dtos/offer.dto';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {HttpClientModule, HttpClient, HttpHeaders} from '@angular/common/http';
 import {CreateOfferModel} from "../../dtos/create-offer.dto";
 @Injectable({
   providedIn: 'root'
@@ -37,5 +37,15 @@ export class OfferService {
   createOffer(offer: CreateOfferModel): Observable<OfferDTO> {
     const url = 'http://localhost:8080/api/offers';
     return this.http.post<OfferDTO>(url, offer, { withCredentials: true });
+  }
+  createOfferWithFile(formData: FormData): Observable<OfferDTO> {
+    const url = 'http://localhost:8080/api/offers';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'enctype': 'multipart/form-data' // this is important for sending files
+      }),
+      withCredentials: true
+    };
+    return this.http.post<OfferDTO>(url, formData, httpOptions);
   }
 }
