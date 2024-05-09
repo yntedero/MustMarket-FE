@@ -5,6 +5,7 @@ export class CreateOfferModel {
   userId: number;
   cityId: number;
   categoryId: number;
+  file: File | null;
 
   constructor() {
     this.id = 0;
@@ -13,5 +14,6 @@ export class CreateOfferModel {
     this.userId = 0;
     this.cityId = 1;
     this.categoryId = 1;
+    this.file = null;
   }
 }

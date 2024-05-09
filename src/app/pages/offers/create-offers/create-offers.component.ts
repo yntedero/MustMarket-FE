@@ -11,6 +11,8 @@ import {OfferService} from "../../../services/offers/offer.service";
 import {CityService} from "../../../services/cities/city.service";
 import {CategoryService} from "../../../services/categories/category.service";
 import {UserDTO} from "../../../dtos/user.dto";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-create-offers',
@@ -29,15 +31,19 @@ export class CreateOffersComponent {
   createOfferObj: CreateOfferModel = new CreateOfferModel();
   cities: CityDTO[] = [];
   categories: CategoryDTO[] = [];
+  fileToUpload: File | null = null;
+
   // cityId: number = 0;
   // categoryId: number = 0;
   createOfferForm: FormGroup;
+
   constructor(private router: Router,
               private offerService: OfferService,
               private cityService: CityService,
               private categoryService: CategoryService,
               private cookieService: CookieService,
-              private authService: AuthenticationService
+              private authService: AuthenticationService,
+              private http: HttpClient
   ) {
     this.createOfferForm = new FormGroup({
       'title': new FormControl(null),
@@ -56,6 +62,9 @@ export class CreateOffersComponent {
       console.log(user);
       this.createOfferObj.userId = user.userId;
     });
+  }
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
   }
   CreateOffer() {
     console.log(this.createOfferForm.value);
