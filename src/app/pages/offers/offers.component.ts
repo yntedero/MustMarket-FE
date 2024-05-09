@@ -1,4 +1,4 @@
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import {FormsModule} from "@angular/forms";
@@ -54,8 +54,8 @@ export class OffersComponent implements  OnInit{
       this.isAdmin = isAdmin;
     });
   }
-  getPhotoUrl(photo: string | null): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustUrl(`data:image/jpeg;base64,${photo}`);
+  getPhotoUrl(photo: string | null): SafeResourceUrl | null {
+    return photo ? this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/jpeg;base64,${photo}`) : null;
   }
   getOffers(cityId?: number, categoryId?: number) {
     if (cityId === 0) {
