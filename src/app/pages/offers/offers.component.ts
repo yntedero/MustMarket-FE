@@ -1,3 +1,4 @@
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import {FormsModule} from "@angular/forms";
@@ -37,6 +38,7 @@ export class OffersComponent implements  OnInit{
   ];
   constructor(
     private router: Router,
+    private sanitizer: DomSanitizer,
     private offerService: OfferService,
     private cityService: CityService,
     private categoryService: CategoryService,
@@ -51,6 +53,9 @@ export class OffersComponent implements  OnInit{
     this.authService.isAdmin().subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     });
+  }
+  getPhotoUrl(photo: string | null): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(`data:image/jpeg;base64,${photo}`);
   }
   getOffers(cityId?: number, categoryId?: number) {
     if (cityId === 0) {

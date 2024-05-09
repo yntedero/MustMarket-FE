@@ -4,6 +4,7 @@ import {OfferService} from "../../../services/offers/offer.service";
 import {ActivatedRoute} from "@angular/router";
 import {CategoryService} from "../../../services/categories/category.service";
 import {CityService} from "../../../services/cities/city.service";
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-offer-details',
@@ -17,13 +18,16 @@ export class OfferDetailsComponent implements OnInit{
 
   constructor(
     private offerService: OfferService,
+    private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private cityService: CityService,
     private categoryService: CategoryService
   ) {
-    this.offer = new OfferDTO(1, "Title", "Description", 1, 1, 1);
+    this.offer = new OfferDTO(1, "Title", "Description", 1, 1, 1, "");
   }
-
+  getPhotoUrl(photo: string | null): SafeUrl {
+    return photo ? this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/jpeg;base64,${photo}`) : null;
+  }
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
     this.offerService.getOfferById(id).subscribe((offer: OfferDTO) => {

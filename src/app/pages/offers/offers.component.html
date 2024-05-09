@@ -8,7 +8,8 @@
       </div>
       <div *ngFor="let offer of offers" class="offer-card">
         <a [routerLink]="['/offer-details', offer.id]">
-          <div class="offer-image"></div>
+          <img *ngIf="offer.photo" [src]="getPhotoUrl(offer.photo)" alt="Offer image">
+          <div class="offer-image" *ngIf="!offer.photo"></div>
         </a>
         <div class="offer-info">
           <a [routerLink]="['/offer-details', offer.id]">

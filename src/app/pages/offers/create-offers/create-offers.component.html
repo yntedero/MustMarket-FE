@@ -33,7 +33,11 @@
           <option value="">Select a category</option>
           <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
         </select>
-        <button (click)="CreateOffer()">Create</button>
+        <div class="form-group">
+          <label for="file">Photo:</label>
+          <input type="file" id="file" (change)="handleFileInput($event)">
+        </div>
+        <button type="submit" (click)="CreateOffer()">Create</button>
       </form>
     </div>
   </div>

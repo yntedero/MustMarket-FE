@@ -14,6 +14,8 @@ import {UserDTO} from "../../../dtos/user.dto";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import {from, Observable, switchMap} from "rxjs";
+import {OfferDTO} from "../../../dtos/offer.dto";
 @Component({
   selector: 'app-create-offers',
   standalone: true,
@@ -63,26 +65,27 @@ export class CreateOffersComponent {
       this.createOfferObj.userId = user.userId;
     });
   }
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-  }
-  CreateOffer() {
-    if (this.fileToUpload !== null) {
-      const formData: FormData = new FormData();
-      formData.append('file', this.fileToUpload, this.fileToUpload.name);
-      formData.append('offer', JSON.stringify(this.createOfferForm.value));
-
-      this.offerService.createOfferWithFile(formData).subscribe(response => {
-        alert('Offer Created Successfully');
-        this.router.navigateByUrl('/offers');
-      });
+  handleFileInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    if (files && files.length > 0) {
+      this.fileToUpload = files.item(0);
     } else {
-      this.offerService.createOffer(this.createOfferForm.value).subscribe(response => {
-        alert('Offer Created Successfully');
-        this.router.navigateByUrl('/offers');
-      });
+      this.fileToUpload = null;
+      console.error('No file selected');
     }
   }
+
+  CreateOffer() {
+    this.offerService.createOffer(this.createOfferForm.value, this.fileToUpload)
+      .subscribe(response => {
+        alert('Offer Created Successfully');
+        this.router.navigateByUrl('/offers');
+      }, error => {
+        console.error('Error creating offer', error);
+      });
+  }
+
 }
 
 

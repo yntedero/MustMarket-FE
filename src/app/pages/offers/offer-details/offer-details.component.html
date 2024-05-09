@@ -1,7 +1,9 @@
 <div class="parent">
   <div class="container">
     <div class="offer-card">
-      <div class="offer-image"></div>
+<!--      <div class="offer-image"></div>-->
+      <img *ngIf="offer.photo" [src]="getPhotoUrl(offer.photo)" alt="Offer image">
+      <div class="offer-image" *ngIf="!offer.photo"></div>
       <div class="offer-info">
         <h2>{{ offer.title }}</h2>
         <p>{{ offer.description }}</p>
