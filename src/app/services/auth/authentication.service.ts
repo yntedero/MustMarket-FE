@@ -69,5 +69,27 @@ export class AuthenticationService {
     }
     return request;
   }
+
+  logout() {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+
+    return this.http.delete('http://localhost:8080/api/authentication', { headers })
+      .pipe(tap(() => {
+        this.cookieService.delete('token');
+      }));
+  }
+
+  isUserAuthorized() {
+    const token = this.getToken();
+    const isAuthorized = !!token;
+    console.log('User is authorized:', isAuthorized);
+    if (isAuthorized) {
+      console.log('Token:', token);
+    }
+    return isAuthorized;
+  }
 }
 
