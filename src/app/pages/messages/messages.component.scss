@@ -6,7 +6,6 @@
   box-sizing: border-box;
 }
 
-
 main {
   height: 95vh;
   background-size: 100% 100%;
@@ -27,9 +26,7 @@ main {
   border-bottom-right-radius: 0px;
   overflow-y: auto;
   border: 1px solid #ffffff21;
-
 }
-
 
 .SideNavhead {
   display: flex;
@@ -42,7 +39,6 @@ main {
   color: #5c6bc0;
   font-size: 1.8rem;
   margin-right: auto;
-
 }
 
 .popup.active {
@@ -103,13 +99,12 @@ section {
   font-size: 20px;
 }
 
-
 .searchInput::placeholder {
   color: #b0b0b0;
 }
 
 .SearchInputHolder hr {
-  content: "";
+  content: '';
   width: calc(100% - 40px);
   height: 2px;
   border-radius: 5px;
@@ -121,8 +116,6 @@ section {
   border: none;
   bottom: 0px;
 }
-
-
 
 .searchInput:focus {
   color: gray;
@@ -141,11 +134,10 @@ section {
   user-select: none;
   cursor: pointer;
   background: #5c6bc0;
-
 }
 
 .avatar {
-  grid-row: 1/span 2;
+  grid-row: 1 / span 2;
   background-color: white;
   border-radius: 50%;
   height: 100%;
@@ -201,7 +193,7 @@ section {
   height: 40px;
   width: 40px;
 }
-.Chat{
+.Chat {
   overflow: hidden;
 }
 
@@ -250,7 +242,7 @@ section {
   padding: 10px;
   display: flex;
   width: 100%;
-  margin-top:-50px;
+  margin-top: -50px;
 }
 
 #MessageForm input {
@@ -262,89 +254,81 @@ section {
   background-color: #ebebebc6;
 }
 
-
-
-
 #MessageForm button {
   padding: 10px 15px;
   border: none;
   background-color: #512da8;
   color: white;
-  cursor:pointer;
+  cursor: pointer;
   border-radius: 10px;
   margin: 0px 5px;
-  font-size: 1.2rem
+  font-size: 1.2rem;
 }
-#MessageForm input:focus{
+#MessageForm input:focus {
   outline-color: #512da8;
 }
-.MessageContainer{
+.MessageContainer {
   display: flex;
-  height:100%;
-  width:100%;
-  padding:10px;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
   padding-bottom: 50px;
   flex-direction: column;
 }
-.MessageContainer span{
+.MessageContainer span {
   margin-bottom: auto;
 }
-.message{
+.message {
   display: flex;
-  padding:10px 15px;
-  width:fit-content;
+  padding: 10px 15px;
+  width: fit-content;
   flex-direction: column;
   border-radius: 5px;
-  margin:5px;
+  margin: 5px;
   position: relative;
 }
-.you{
+.you {
   background-color: #dee2e6;
-  color:#000000;
-  text-align:left;
+  color: #000000;
+  text-align: left;
 }
-.message i{
-  color:#00f5d4
+.message i {
+  color: #00f5d4;
 }
-.messageDetails{
+.messageDetails {
   font-size: 0.7rem;
   display: flex;
   justify-content: flex-end;
-  width:100%;
+  width: 100%;
   text-align: right;
   align-items: center;
-  padding:2px 0px;
-
-
+  padding: 2px 0px;
 }
-.messageContent{
+.messageContent {
   font-size: 0.9rem;
 }
-.messageDetails .messageTime{
+.messageDetails .messageTime {
   margin-left: auto;
-  padding-right:5px;
+  padding-right: 5px;
   font-weight: 300;
-  color:#c3c1c1;
-
-
-
+  color: #c3c1c1;
 }
-.you .messageDetails .messageTime{
-  color:rgb(38, 38, 38);
+.you .messageDetails .messageTime {
+  color: rgb(38, 38, 38);
 }
-.you i{
-  color:#036666
+.you i {
+  color: #036666;
 }
-.me{
-  margin-left:auto;
+.me {
+  margin-left: auto;
   background-color: #512da8;
 
   text-align: right;
 }
-.messageSeperator{
+.messageSeperator {
   margin: 10px auto;
-  padding:8px 15px;
-  border-radius:20px ;
-  width:fit-content;
+  padding: 8px 15px;
+  border-radius: 20px;
+  width: fit-content;
   background-color: #036666;
 }

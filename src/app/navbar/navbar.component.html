@@ -5,7 +5,13 @@
     <li><a [routerLink]="['/offers']">Offers</a></li>
     <li><a [routerLink]="['/create-offer']">Create Offer</a></li>
     <li><a [routerLink]="['/profile']">Profile</a></li>
-    <li><a [routerLink]="['/login']">Login</a></li>
-    <li><a [routerLink]="['/logout']">Logout</a></li>
+    <li>
+      @if (!isUserAuthorized()) {
+        <a [routerLink]="['/login']">Login</a>
+      }
+    </li>
+    <li><button (click)="logout()" type="button">Logout</button></li>
   </ul>
 </nav>
+
+

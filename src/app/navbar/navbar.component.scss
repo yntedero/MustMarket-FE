@@ -31,7 +31,9 @@ nav ul li a {
   font-size: 16px;
   text-transform: uppercase;
   text-decoration: none;
-  transition: color 0.3s, background-color 0.3s;
+  transition:
+    color 0.3s,
+    background-color 0.3s;
 }
 
 nav ul li a:hover {
@@ -48,7 +50,7 @@ nav .search {
   padding: 0;
 }
 
-nav input[type="search"] {
+nav input[type='search'] {
   border: none;
   border-radius: 15px;
   padding: 10px;
@@ -65,7 +67,9 @@ nav button {
   cursor: pointer;
   text-transform: uppercase;
   font-weight: 600;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 nav button:hover {
