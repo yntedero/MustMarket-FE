@@ -54,8 +54,8 @@ export class OffersComponent implements  OnInit{
       this.isAdmin = isAdmin;
     });
   }
-  getPhotoUrl(photo: string | null): SafeResourceUrl | null {
-    return photo ? this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/jpeg;base64,${photo}`) : null;
+  getPhotoUrl(file: string | null): SafeResourceUrl | null {
+    return file ? this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/jpeg;base64,${file}`) : null;
   }
   getOffers(cityId?: number, categoryId?: number) {
     if (cityId === 0) {

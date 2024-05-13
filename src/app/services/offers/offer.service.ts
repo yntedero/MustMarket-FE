@@ -43,6 +43,7 @@ export class OfferService {
           file: base64File
         };
         const url = 'http://localhost:8080/api/offers';
+        console.log(offerData);
         return this.http.post<OfferDTO>(url, offerData);
       })
     );
