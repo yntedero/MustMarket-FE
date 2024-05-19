@@ -13,7 +13,7 @@ import { CategoryService } from '../../../services/categories/category.service'
 import { UserDTO } from '../../../dtos/user.dto'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms'
+import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
 import { from, Observable, switchMap } from 'rxjs'
 import { OfferDTO } from '../../../dtos/offer.dto'
 @Component({
@@ -44,11 +44,11 @@ export class CreateOffersComponent {
     private http: HttpClient
   ) {
     this.createOfferForm = new FormGroup({
-      title: new FormControl(null),
-      description: new FormControl(null),
+      title: new FormControl(null, Validators.required),
+      description: new FormControl(null, Validators.required),
       userId: new FormControl(null),
-      cityId: new FormControl(null),
-      categoryId: new FormControl(null),
+      cityId: new FormControl(null, Validators.required),
+      categoryId: new FormControl(null, Validators.required)
     })
   }
   ngOnInit() {
@@ -75,16 +75,19 @@ export class CreateOffersComponent {
   }
 
   CreateOffer() {
-    this.offerService
-      .createOffer(this.createOfferForm.value, this.fileToUpload)
-      .subscribe(
-        (response) => {
-          alert('Offer Created Successfully')
-          this.router.navigateByUrl('/offers')
-        },
-        (error) => {
-          console.error('Error creating offer', error)
-        }
-      )
-  }
+    if(this.createOfferForm.valid){
+      this.offerService
+        .createOffer(this.createOfferForm.value, this.fileToUpload)
+        .subscribe(
+          (response) => {
+            alert('Offer Created Successfully')
+            this.router.navigate(['/offers'])
+          },
+          (error) => {
+            console.error('Error creating offer', error)
+          }
+        )
+    }
+    }
+
 }

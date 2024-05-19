@@ -38,8 +38,7 @@
           <label for="file">Photo:</label>
           <input type="file" id="file" (change)="handleFileInput($event)">
         </div>
-        <button type="submit" (click)="CreateOffer()">Create</button>
-      </form>
+        <button type="submit" (click)="CreateOffer()" [disabled]="!createOfferForm.valid">Create</button>      </form>
     </div>
   </div>
 </div>

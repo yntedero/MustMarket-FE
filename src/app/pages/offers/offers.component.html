@@ -2,6 +2,14 @@
   <div class="container">
     <app-offers-filter (filtersApplied)="getOffers($event.cityId, $event.categoryId)"></app-offers-filter>
     <h1>Offers</h1>
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchText" (input)="filterOffers()" placeholder="Search offers...">
+      <div class="search-results" *ngIf="keywords.length > 0">
+        <div *ngFor="let keyword of keywords" (click)="getOffersByKeyword(keyword)">
+          {{ keyword }}
+        </div>
+      </div>
+    </div>
     <div class="offers-container">
       <div *ngIf="offers.length === 0">
         <p>No offers found.</p>
