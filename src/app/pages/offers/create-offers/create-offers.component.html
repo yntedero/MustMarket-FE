@@ -22,17 +22,19 @@
       <form [formGroup]="createOfferForm">
         <h1>Create Offer</h1>
         <br>
-        <span>Enter information about your offer</span>
+        <span>Tell us more about your offer</span>
         <input type="text" formControlName="title" placeholder="Title">
         <input type="email" formControlName="description" placeholder="Description">
-        <select formControlName="cityId">
-          <option value="">Select a city</option>
-          <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
-        </select>
-        <select formControlName="categoryId">
-          <option value="">Select a category</option>
-          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-        </select>
+        <div class="selects-lol">
+          <select formControlName="cityId">
+            <option value="">Select a city</option>
+            <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+          </select>
+          <select formControlName="categoryId">
+            <option value="">Select a category</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+          </select>
+        </div>
         <div class="form-group">
           <label for="file">Photo:</label>
           <input type="file" id="file" (change)="handleFileInput($event)">

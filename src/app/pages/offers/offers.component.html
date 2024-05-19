@@ -16,10 +16,14 @@
           <h2>{{ offer.title }}</h2>
           <p>{{ offer.description }}...</p>
           </a>
-          <span>City: {{ getCityNameById(offer.cityId) }}</span>
-          <br>
-          <span>Category: {{ getCategoryNameById(offer.categoryId) }}</span>
-          <button *ngIf="isAdmin" (click)="deleteOffer(offer.id)">Delete</button>
+          <div class="offer-details">
+            <span>City: {{ getCityNameById(offer.cityId) }}</span>
+            <br>
+            <span>Category: {{ getCategoryNameById(offer.categoryId) }}</span>
+            <br>
+            <button *ngIf="isAdmin" (click)="deleteOffer(offer.id)">Delete</button>
+          </div>
+
         </div>
       </div>
     </div>

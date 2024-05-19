@@ -27,7 +27,17 @@
   max-width: 100%;
   min-height: 480px;
 }
-
+.selects-lol{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.selects-lol select{
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 48%;
+}
 .container p {
   font-size: 14px;
   line-height: 20px;

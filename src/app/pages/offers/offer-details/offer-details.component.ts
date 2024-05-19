@@ -31,7 +31,7 @@ export class OfferDetailsComponent implements OnInit {
     this.offer = new OfferDTO(1, 'Title', 'Description', 1, 1, 1, '')
   }
   getPhotoUrl(file: string | null): SafeResourceUrl | null {
-    return file ? this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/jpeg;base64,${file}`) : null;
+    return file ? this.sanitizer.bypassSecurityTrustResourceUrl(file) : null;
   }
   ngOnInit() {
     const id = this.route.snapshot.params['id']

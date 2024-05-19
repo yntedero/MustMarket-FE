@@ -59,7 +59,7 @@ export class OffersComponent implements OnInit {
     })
   }
   getPhotoUrl(file: string | null): SafeResourceUrl | null {
-    return file ? this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/jpeg;base64,${file}`) : null;
+    return file ? this.sanitizer.bypassSecurityTrustResourceUrl(file) : null;
   }
   getOffers(cityId?: number, categoryId?: number) {
     if (cityId === 0) {

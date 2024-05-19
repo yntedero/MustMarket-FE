@@ -52,13 +52,22 @@ export class OfferService {
   private toBase64(file: File | null): Promise<string | null> {
     return new Promise((resolve, reject) => {
       if (file) {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = () => resolve(reader.result as string)
-        reader.onerror = (error) => reject(error)
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        const fileType = file.name.split('.').pop()?.toLowerCase();
+        if (!fileType || !validTypes.includes(`image/${fileType}`)) {
+          reject('Invalid file type');
+        }
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          let result = reader.result as string;
+          result = result.split(',')[1];
+          resolve(`data:image/${fileType};base64,${result}`);
+        };
+        reader.onerror = (error) => reject(error);
       } else {
-        resolve(null)
+        resolve(null);
       }
-    })
+    });
   }
 }
