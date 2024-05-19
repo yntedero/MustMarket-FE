@@ -24,8 +24,7 @@
         <br>
         <span>Tell us more about your offer</span>
         <input type="text" formControlName="title" placeholder="Title">
-        <input type="email" formControlName="description" placeholder="Description">
-        <div class="selects-lol">
+        <textarea formControlName="description" placeholder="Description" rows="4"></textarea>        <div class="selects-lol">
           <select formControlName="cityId">
             <option value="">Select a city</option>
             <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>

@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  height: auto;
 }
 
 .container {
@@ -39,12 +39,17 @@
   text-align: left;
   box-sizing: border-box;
 }
-
 .offer-image {
-  width: 100%; /* Made the image wider */
-  height: 300px;
-  //background-color: #512da8;
-  margin-bottom: 20px;
+  width: 100%;
+  height: auto;
+  background-color: #512da8;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
 }
 .offer-info {
   padding-left: 8px;
