@@ -1,12 +1,13 @@
-<div *ngIf="user; else loading">
-  <h1>User Profile</h1>
-  <p><strong>User ID:</strong> {{ user.userId }}</p>
-  <p><strong>Email:</strong> {{ user.email }}</p>
-  <p><strong>Name:</strong> {{ user.firstName }} {{ user.lastName }}</p>
-  <p><strong>Contact:</strong> {{ user.contact }}</p>
-  <p><strong>Role:</strong> {{ user.role }}</p>
-  <p><strong>Status:</strong> {{ user.status }}</p>
+<div class="parent">
+  <div class="container" *ngIf="user; else loading">
+    <h1>User Profile</h1>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Name:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+    <p><strong>Contact:</strong> {{ user.contact }}</p>
+    <p><strong>Role:</strong> {{ user.role }}</p>
+    <p><strong>Status:</strong> {{ user.status }}</p>
+  </div>
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
 </div>
-<ng-template #loading>
-  <p>Loading...</p>
-</ng-template>

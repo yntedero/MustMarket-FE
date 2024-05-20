@@ -10,7 +10,12 @@
         <a [routerLink]="['/login']">Login</a>
       }
     </li>
-    <li><button (click)="logout()" type="button">Logout</button></li>
+    <li>
+      @if (isUserAuthorized()) {
+        <button (click)="logout()" type="button">Logout</button>
+      }
+    </li>
+    <li></li>
   </ul>
 </nav>
 

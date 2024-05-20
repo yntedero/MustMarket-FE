@@ -40,7 +40,6 @@ export class LoginComponent {
       .login(this.loginObj.email, this.loginObj.password)
       .subscribe(
         (response) => {
-          alert('User Found...')
           console.log('token', this.authenticationService.getToken())
           this.cookieService.set('token', this.authenticationService.getToken())
           this.cookieService.set('user', this.loginObj.email)
@@ -61,13 +60,17 @@ export class LoginComponent {
 export class SignUpModel {
   name: string
   email: string
-  phone: string
+  firstName: string
+  lastName: string
+  contact: string
   password: string
 
   constructor() {
     this.email = ''
     this.name = ''
-    this.phone = ''
+    this.firstName = ''
+    this.lastName = ''
+    this.contact = ''
     this.password = ''
   }
 }

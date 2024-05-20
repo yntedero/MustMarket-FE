@@ -10,13 +10,13 @@ import { AuthGuard } from './services/auth/auth.guard'
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'offers', component: OffersComponent, canActivate: [AuthGuard] }, // Protected route
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }, // Protected route
+  { path: 'offers', component: OffersComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   {
     path: 'create-offer',
     component: CreateOffersComponent,
     canActivate: [AuthGuard],
   }, // Protected route
-  { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] }, // Protected route
+  { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'offer-details/:id', component: OfferDetailsComponent },
 ]

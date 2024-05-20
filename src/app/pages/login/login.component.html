@@ -1,25 +1,25 @@
-
 <div class="parent">
   <div class="container" [ngClass]="isSignDivVisiable ? 'active' :'' " id="container">
-    <div class="form-container sign-up" >
+    <div class="form-container sign-up">
       <form>
         <h1>Create Account</h1>
         <br>
-        <span>Enter you personal info for registration</span>
-        <input type="text" name="name" [(ngModel)]="signUpObj.name" placeholder="Name">
+        <span>Enter your personal info for registration</span>
+        <input type="text" name="firstName" [(ngModel)]="signUpObj.firstName" placeholder="First Name">
+        <input type="text" name="lastName" [(ngModel)]="signUpObj.lastName" placeholder="Last Name">
         <input type="email" name="email" [(ngModel)]="signUpObj.email" placeholder="Email">
-        <input type="text" name="phone" [(ngModel)]="signUpObj.phone" placeholder="Your Number">
-        <input type="password" name="password"  [(ngModel)]="signUpObj.password" placeholder="Password">
+        <input type="text" name="contact" [(ngModel)]="signUpObj.contact" placeholder="Contact Number">
+        <input type="password" name="password" [(ngModel)]="signUpObj.password" placeholder="Password">
         <button (click)="onRegister()">Sign Up</button>
       </form>
     </div>
-    <div class="form-container sign-in"  >
+    <div class="form-container sign-in">
       <form>
         <h1>Sign In</h1>
         <br>
-        <span>We glad to see you again</span>
+        <span>We're glad to see you again</span>
         <input type="email" name="email" [(ngModel)]="loginObj.email" placeholder="Email">
-        <input type="password" name="password"   [(ngModel)]="loginObj.password" placeholder="Password">
+        <input type="password" name="password" [(ngModel)]="loginObj.password" placeholder="Password">
         <!--        <a href="#">→ Forget Your Password? ←</a>-->
         <button (click)="onLogin()">Sign In</button>
       </form>
@@ -28,7 +28,7 @@
       <div class="toggle">
         <div class="toggle-panel toggle-left">
           <h1>Welcome Back!</h1>
-          <p>Enter your personal details to use all of site features</p>
+          <p>Enter your personal details and start journey with us</p>
           <button type="button" class="hidden" id="login" (click)="isSignDivVisiable = false">Sign In</button>
         </div>
         <div class="toggle-panel toggle-right">
