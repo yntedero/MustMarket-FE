@@ -42,16 +42,26 @@ a {
 }
 
 .offer-card {
+  display: flex;
+  flex-direction: row;
   background-color: #fff; /* Added white background */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   width: 100%;
-  height: 200px; /* Adjusted height */
+  //height: ; /* Adjusted height */
   padding: 8px;
   margin-top: 20px;
   display: flex;
   box-sizing: border-box;
 }
-
+.offer-details{
+  margin-bottom: 0;
+}
+.offer-card img {
+  width: 250px; /* Set width to 250px */
+  height: 250px; /* Set height to 250px */
+  object-fit: cover; /* This will ensure that the image covers the entire space of the div without distorting the aspect ratio */
+  object-position: center; /* This will ensure that the image is centered within the div */
+}
 .offer-image {
   width: 172px; /* Adjusted width */
   height: 100%; /* Adjusted height to take all available space */
@@ -97,4 +107,33 @@ button {
 
 button:hover {
   background-color: #cc0000; /* darken background color when hovering */
+}
+.search-bar {
+  position: relative;
+  width: 200px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.search-results {
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.search-results div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.search-results div:hover {
+  background-color: #f0f0f0;
 }

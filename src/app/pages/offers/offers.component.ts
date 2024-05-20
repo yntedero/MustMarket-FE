@@ -40,6 +40,10 @@ export class OffersComponent implements OnInit {
     // new OfferDTO(2, 'Title 2', 'Description 2', 2, 2, 2),
     // new OfferDTO(3, 'Title 3', 'Description 3', 3, 3, 3)
   ]
+  searchText: string = '';
+  filteredOffers: OfferDTO[] = [];
+  keywords: string[] = [];
+
   constructor(
     private router: Router,
     private sanitizer: DomSanitizer,
@@ -58,12 +62,8 @@ export class OffersComponent implements OnInit {
       this.isAdmin = isAdmin
     })
   }
-  getPhotoUrl(photo: string | null): SafeResourceUrl | null {
-    return photo
-      ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          `data:image/jpeg;base64,${photo}`
-        )
-      : null
+  getPhotoUrl(file: string | null): SafeResourceUrl | null {
+    return file ? this.sanitizer.bypassSecurityTrustResourceUrl(file) : null;
   }
   getOffers(cityId?: number, categoryId?: number) {
     if (cityId === 0) {
@@ -77,6 +77,7 @@ export class OffersComponent implements OnInit {
       .subscribe((offers: OfferDTO[]) => {
         console.log('offers', offers)
         this.offers = offers
+        this.filteredOffers = [...offers];
       })
   }
   getAllCities() {
@@ -103,6 +104,26 @@ export class OffersComponent implements OnInit {
   // }
   getCategoryNameById(id: number): string {
     return this.categoryService.getCategoryNameById(id)
+  }
+  filterOffers() {
+    if (this.searchText.length > 0) {
+      this.keywords = this.offers
+        .map(offer => [offer.title, offer.description])
+        .flat()
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .filter(keyword =>
+          keyword.toLowerCase().includes(this.searchText.toLowerCase())
+        );
+    } else {
+      this.keywords = [];
+    }
+  }
+  getOffersByKeyword(keyword: string) {
+    this.filteredOffers = [...this.filteredOffers.filter(offer =>
+      offer.title.toLowerCase().includes(keyword.toLowerCase()) ||
+      offer.description.toLowerCase().includes(keyword.toLowerCase())
+    )];
+    console.log("filtering by keyword", keyword, this.filteredOffers);
   }
   deleteOffer(id: number) {
     this.offerService.deleteOffer(id).subscribe(
