@@ -82,7 +82,9 @@ export class AuthService {
 
   getUserDetails(): Observable<UserDTO> {
     const url = 'http://localhost:8080/api/users/user-details'
-    return this.http.get<UserDTO>(url, { withCredentials: true })
+    return this.http.get<UserDTO>(url, { withCredentials: true }).pipe(
+      map((response) => response as UserDTO) // Adjust if the response is wrapped in any object
+    )
   }
 
   // auto adding token bearer to every request to the server
