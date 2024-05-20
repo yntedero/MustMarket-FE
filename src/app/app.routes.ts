@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router'
+import { HomeComponent } from './pages/home/home.component' // Make sure you have imported HomeComponent
 import { LoginComponent } from './pages/login/login.component'
 import { OffersComponent } from './pages/offers/offers.component'
 import { ProfileComponent } from './pages/profile/profile.component'
@@ -8,7 +9,7 @@ import { OfferDetailsComponent } from './pages/offers/offer-details/offer-detail
 import { AuthGuard } from './services/auth/auth.guard'
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', component: HomeComponent, pathMatch: 'full' }, // Set HomeComponent as the default landing page
   { path: 'login', component: LoginComponent },
   { path: 'offers', component: OffersComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
@@ -16,7 +17,11 @@ export const routes: Routes = [
     path: 'create-offer',
     component: CreateOffersComponent,
     canActivate: [AuthGuard],
-  }, // Protected route
+  },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
-  { path: 'offer-details/:id', component: OfferDetailsComponent },
+  {
+    path: 'offer-details/:id',
+    component: OfferDetailsComponent,
+    canActivate: [AuthGuard],
+  }, // Assuming you want this route protected as well
 ]
