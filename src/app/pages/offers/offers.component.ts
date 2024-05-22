@@ -121,9 +121,27 @@ export class OffersComponent implements OnInit {
         .filter(keyword =>
           keyword.toLowerCase().includes(this.searchText.toLowerCase())
         );
+      this.offers = this.allOffers
+        .map(offer => ({
+          ...offer,
+          score: (offer.title.match(new RegExp(this.searchText, 'gi')) || []).length +
+            (offer.description.match(new RegExp(this.searchText, 'gi')) || []).length
+        }))
+        .sort((a, b) => b.score - a.score)
+        .map(offer => {
+          const { score, ...offerWithoutScore } = offer;
+          return offerWithoutScore;
+        });
     } else {
       this.keywords = [];
+      this.offers = [...this.allOffers];
     }
+  }
+  getOffersByHint(hint: string) {
+    this.offers = this.allOffers.filter(offer =>
+      offer.title.toLowerCase().includes(hint.toLowerCase()) ||
+      offer.description.toLowerCase().includes(hint.toLowerCase())
+    );
   }
   getOffersByKeyword(keyword: string) {
     this.offers = this.allOffers.filter(offer =>
