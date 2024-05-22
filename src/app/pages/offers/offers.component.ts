@@ -43,7 +43,7 @@ export class OffersComponent implements OnInit {
   searchText: string = '';
   filteredOffers: OfferDTO[] = [];
   keywords: string[] = [];
-
+  allOffers: OfferDTO[] = [];
   constructor(
     private router: Router,
     private sanitizer: DomSanitizer,
@@ -61,6 +61,13 @@ export class OffersComponent implements OnInit {
     this.authService.isAdmin().subscribe((isAdmin) => {
       this.isAdmin = isAdmin
     })
+    this.getAllOffers();
+  }
+  getAllOffers() {
+    this.offerService.getOffers().subscribe((offers: OfferDTO[]) => {
+      this.allOffers = offers;
+      this.offers = [...offers];
+    });
   }
   getPhotoUrl(file: string | null): SafeResourceUrl | null {
     return file ? this.sanitizer.bypassSecurityTrustResourceUrl(file) : null;
@@ -107,7 +114,7 @@ export class OffersComponent implements OnInit {
   }
   filterOffers() {
     if (this.searchText.length > 0) {
-      this.keywords = this.offers
+      this.keywords = this.allOffers
         .map(offer => [offer.title, offer.description])
         .flat()
         .filter((value, index, self) => self.indexOf(value) === index)
@@ -119,11 +126,10 @@ export class OffersComponent implements OnInit {
     }
   }
   getOffersByKeyword(keyword: string) {
-    this.filteredOffers = [...this.filteredOffers.filter(offer =>
+    this.offers = this.allOffers.filter(offer =>
       offer.title.toLowerCase().includes(keyword.toLowerCase()) ||
       offer.description.toLowerCase().includes(keyword.toLowerCase())
-    )];
-    console.log("filtering by keyword", keyword, this.filteredOffers);
+    );
   }
   deleteOffer(id: number) {
     this.offerService.deleteOffer(id).subscribe(

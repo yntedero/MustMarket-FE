@@ -12,6 +12,8 @@ import { CityService } from '../../../services/cities/city.service'
 import { CategoryService } from '../../../services/categories/category.service'
 import { UserDTO } from '../../../dtos/user.dto'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
 import { from, Observable, switchMap } from 'rxjs'
@@ -74,20 +76,26 @@ export class CreateOffersComponent {
     }
   }
 
+
   CreateOffer() {
     if(this.createOfferForm.valid){
       this.offerService
         .createOffer(this.createOfferForm.value, this.fileToUpload)
+        .pipe(
+          catchError((error) => {
+            console.error('Error creating offer', error);
+            return of(null);
+          })
+        )
         .subscribe(
           (response) => {
-            alert('Offer Created Successfully')
-            this.router.navigate(['/offers'])
-          },
-          (error) => {
-            console.error('Error creating offer', error)
+            if (response !== null) {
+              alert('Offer Created Successfully');
+              this.router.navigate(['/offers']);
+            }
           }
-        )
+        );
     }
-    }
+  }
 
 }

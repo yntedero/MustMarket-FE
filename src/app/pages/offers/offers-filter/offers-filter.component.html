@@ -2,14 +2,14 @@
   <div class="select-container">
     <p>City:</p>
     <select [(ngModel)]="cityId" (change)="applyFilters()" name="city" class="select">
-      <option value="">Select a city</option>
+      <option value="">All cities</option>
       <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
     </select>
   </div>
   <div class="select-container">
     <p>Category:</p>
     <select [(ngModel)]="categoryId" (change)="applyFilters()" name="category" class="select">
-      <option value="">Select a category</option>
+      <option value="">All categories</option>
       <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
     </select>
   </div>
