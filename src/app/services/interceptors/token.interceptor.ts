@@ -14,7 +14,6 @@ export const authInterceptor: HttpInterceptorFn = (
   if (req.url.includes('/api/authentication') || !token) {
     return next(req)
   }
-
   return next(
     req.clone({
       headers: req.headers.set('Authorization', `Bearer ${token}`),

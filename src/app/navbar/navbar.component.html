@@ -1,6 +1,10 @@
 <nav>
   <ul>
-    <li><a [routerLink]="['/']">Home</a></li>
+    <li>
+      @if (!isUserAuthorized()) {
+        <a [routerLink]="['/']">Home</a>
+      }
+    </li>
     <li><a [routerLink]="['/messages']">Chats</a></li>
     <li><a [routerLink]="['/offers']">Offers</a></li>
     <li><a [routerLink]="['/create-offer']">Create Offer</a></li>
