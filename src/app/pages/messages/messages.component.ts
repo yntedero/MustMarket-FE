@@ -7,7 +7,7 @@ import {
 } from '@angular/core'
 import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common'
 import { FormsModule } from '@angular/forms'
-import { Router, RouterModule } from '@angular/router'
+import {ActivatedRoute, Router, RouterModule} from '@angular/router'
 import { MessagesService } from '../../services/messages/messages.service'
 import { MessageDto } from '../../dtos/message.dto'
 import { Message } from '@stomp/stompjs'
@@ -49,6 +49,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private messageService: MessagesService,
     private rxStompService: RxStompService,
     private cookieService: CookieService
@@ -78,7 +79,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
       this.users = users.filter((user) => user.email !== this.user)
       this.filteredUsers = this.users
       console.log(this.users)
-    })
+    });
+    this.activatedRoute.paramMap.subscribe((params) => {
+      const email = params.get('email');
+      if (email) {
+        this.selectFromList(email);
+      }
+    });
   }
 
   ngOnDestroy() {

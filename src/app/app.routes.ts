@@ -19,9 +19,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
+  { path: 'messages/:email', component: MessagesComponent, canActivate: [AuthGuard] },
   {
     path: 'offer-details/:id',
     component: OfferDetailsComponent,
     canActivate: [AuthGuard],
-  }, // Assuming you want this route protected as well
+  },
 ]
