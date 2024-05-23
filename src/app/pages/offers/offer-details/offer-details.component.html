@@ -7,10 +7,12 @@
       <div class="offer-info">
         <h2>{{ offer.title }}</h2>
         <p>{{ offer.description }}</p>
+        <span>User's email: {{ offer.userEmail }}</span>
+        <br>
         <span>City: {{ getCityNameById(offer.cityId) }}</span>
         <br>
         <span>Category: {{ getCategoryNameById(offer.categoryId) }}</span>
-        <button class="chat-button" (click)="redirectToChat(offer.userId)">Chat with user</button>      </div>
+        <button class="chat-button" (click)="redirectToChat(offer.userEmail)">Chat with user</button>      </div>
     </div>
   </div>
 </div>

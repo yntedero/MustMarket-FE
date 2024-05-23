@@ -3,6 +3,7 @@ export class CreateOfferModel {
   title: string
   description: string
   userId: number
+  userEmail: string
   cityId: number
   categoryId: number
   file: File | null
@@ -12,6 +13,7 @@ export class CreateOfferModel {
     this.title = ''
     this.description = ''
     this.userId = 0
+    this.userEmail = ''
     this.cityId = 1
     this.categoryId = 1
     this.file = null

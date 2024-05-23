@@ -31,7 +31,7 @@ export class OfferDetailsComponent implements OnInit {
     private cityService: CityService,
     private categoryService: CategoryService
   ) {
-    this.offer = new OfferDTO(1, 'Title', 'Description', 1, 1, 1, '')
+    this.offer = new OfferDTO(1, 'Title', 'Description', 1, 'lol@gmail.com', 1, 1, '')
   }
   getPhotoUrl(file: string | null): SafeResourceUrl | null {
     return file ? this.sanitizer.bypassSecurityTrustResourceUrl(file) : null;
@@ -49,7 +49,7 @@ export class OfferDetailsComponent implements OnInit {
   getCategoryNameById(id: number): string {
     return this.categoryService.getCategoryNameById(id)
   }
-  redirectToChat(userId: number) {
-    this.router.navigate(['/messages']);
+  redirectToChat(userEmail: string) {
+    this.router.navigate(['/messages', userEmail]);
   }
 }

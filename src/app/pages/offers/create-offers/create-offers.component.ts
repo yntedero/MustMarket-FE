@@ -49,6 +49,7 @@ export class CreateOffersComponent {
       title: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
       userId: new FormControl(null),
+      userEmail: new FormControl(null),
       cityId: new FormControl(null, Validators.required),
       categoryId: new FormControl(null, Validators.required)
     })
@@ -63,6 +64,7 @@ export class CreateOffersComponent {
     this.authService.getUserDetails().subscribe((user: UserDTO) => {
       console.log(user)
       this.createOfferObj.userId = user.userId
+      this.createOfferObj.userEmail = user.email
     })
   }
   handleFileInput(event: Event) {
