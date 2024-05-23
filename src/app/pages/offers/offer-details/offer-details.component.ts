@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { OfferDTO } from '../../../dtos/offer.dto'
 import { OfferService } from '../../../services/offers/offer.service'
-import { ActivatedRoute } from '@angular/router'
+import {ActivatedRoute, RouterLink} from '@angular/router'
 import { CategoryService } from '../../../services/categories/category.service'
 import { CityService } from '../../../services/cities/city.service'
+import { Router } from '@angular/router';
+
 import {
   DomSanitizer,
   SafeResourceUrl,
@@ -14,7 +16,7 @@ import { NgIf } from '@angular/common'
 @Component({
   selector: 'app-offer-details',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, RouterLink],
   templateUrl: './offer-details.component.html',
   styleUrl: './offer-details.component.scss',
 })
@@ -23,6 +25,7 @@ export class OfferDetailsComponent implements OnInit {
 
   constructor(
     private offerService: OfferService,
+    private router: Router,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private cityService: CityService,
@@ -45,5 +48,8 @@ export class OfferDetailsComponent implements OnInit {
 
   getCategoryNameById(id: number): string {
     return this.categoryService.getCategoryNameById(id)
+  }
+  redirectToChat(userId: number) {
+    this.router.navigate(['/messages']);
   }
 }

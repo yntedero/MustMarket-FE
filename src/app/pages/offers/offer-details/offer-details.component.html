@@ -10,7 +10,7 @@
         <span>City: {{ getCityNameById(offer.cityId) }}</span>
         <br>
         <span>Category: {{ getCategoryNameById(offer.categoryId) }}</span>
-      </div>
+        <button class="chat-button" (click)="redirectToChat(offer.userId)">Chat with user</button>      </div>
     </div>
   </div>
 </div>

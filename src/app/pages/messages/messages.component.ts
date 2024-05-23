@@ -107,10 +107,12 @@ export class MessagesComponent implements OnInit, OnDestroy {
       from: fromUsername,
       timestamp: timeStamp,
     }
+
     this.rxStompService.publish({
       destination: '/app/chat',
       body: JSON.stringify(message),
     })
+
     this.message = ''
     let existingChat = this.chatRooms.find((room) => room.user === toUsername)
     if (!existingChat) {
@@ -119,7 +121,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
     this.selectedChatRoom = existingChat
   }
-
   selectFromList(email: string) {
     const existingChat = this.chatRooms.find((room) => room.user === email)
     if (existingChat) {

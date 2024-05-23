@@ -22,8 +22,7 @@
         <div class="offer-info">
           <a [routerLink]="['/offer-details', offer.id]">
           <h2>{{ offer.title }}</h2>
-          <p>{{ offer.description }}...</p>
-          </a>
+            <p>{{ offer.description.substring(0, 50) }}...</p>          </a>
           <div class="offer-details">
             <span>City: {{ getCityNameById(offer.cityId) }}</span>
             <br>
